@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🎤 Karaokê Show Online</title>
+<title>📺 PLAYER TV ONLINE</title>
+
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
 <style>
 body{
@@ -21,99 +23,89 @@ font-size:24px;
 font-weight:bold;
 }
 
-.sub{
-margin:10px;
-font-size:18px;
-}
-
-.player{
+video{
 width:95%;
-margin:auto;
-}
-
-iframe{
-width:100%;
+max-width:900px;
 height:260px;
-border:none;
 border-radius:12px;
-box-shadow:0 0 15px #ff9900;
+box-shadow:0 0 20px #ff9900;
+background:black;
+margin-top:10px;
 }
 
-.botoes{
+.lista{
 margin-top:15px;
+height:350px;
+overflow:auto;
 }
 
 button{
 background:#ff9900;
 color:white;
 border:none;
-padding:12px 15px;
-margin:5px;
-border-radius:12px;
-font-size:16px;
+padding:10px;
+margin:4px;
+border-radius:10px;
+font-size:15px;
 font-weight:bold;
-box-shadow:0 0 10px #000;
 }
 
 button:hover{
-background:#ff0000;
-}
-
-footer{
-margin-top:20px;
-padding:12px;
-background:#111;
-font-size:14px;
+background:red;
 }
 </style>
 </head>
 
 <body>
 
-<header>🎤 KARAOKÊ SHOW ONLINE</header>
-<div class="sub">Escolha sua música e cante 🎶</div>
+<header>📺 TV AO VIVO - LISTA COMPLETA</header>
 
-<div class="player">
-<iframe id="video"
-src="https://www.youtube.com/embed/videoseries?list=PLhgX6O9sLdD5jNGhK7565hTj_NrHtylhy"
-allowfullscreen></iframe>
-</div>
+<video id="video" controls autoplay></video>
 
-<div class="botoes">
-
-<button onclick="minha()">🎤 Minha Playlist</button>
-
-<button onclick="gospel()">🙏 Gospel</button>
-
-<button onclick="trocar('karaoke gospel harpa louvor')">🎶 Harpa Gospel</button>
-
-<button onclick="trocar('karaoke sertanejo raiz e atual')">🤠 Sertanejo</button>
-
-<button onclick="trocar('karaoke flashback anos 80 90')">🕺 Flashback</button>
-
-<button onclick="trocar('karaoke musica popular brasileira')">🎤 MPB</button>
-
-<button onclick="trocar('playback banda labaredas karaoke')">🔥 Banda Labaredas</button>
-
-</div>
-
-<footer>Seu karaokê digital online 🎤</footer>
+<div class="lista" id="lista"></div>
 
 <script>
-function trocar(busca){
-document.getElementById("video").src =
-"https://www.youtube.com/embed?listType=search&list=" + encodeURIComponent(busca);
+var video = document.getElementById('video');
+
+// 🔥 AQUI OS 100 LINKS (troque depois)
+var canais = [
+"https://cdn-tiva-video10-logicahost-com-br.smartbit.co/redeistv/redeistv/playlist.m3u8",
+"https://cdn-tiva-video10-logicahost-com-br.smartbit.co/redeistv/redeistv/playlist.m3u8",
+"https://cdn-tiva-video10-logicahost-com-br.smartbit.co/redeistv/redeistv/playlist.m3u8",
+"https://cdn-tiva-video10-logicahost-com-br.smartbit.co/redeistv/redeistv/playlist.m3u8",
+"https://cdn-tiva-video10-logicahost-com-br.smartbit.co/redeistv/redeistv/playlist.m3u8",
+"https://cdn-tiva-video10-logicahost-com-br.smartbit.co/redeistv/redeistv/playlist.m3u8",
+"https://cdn-tiva-video10-logicahost-com-br.smartbit.co/redeistv/redeistv/playlist.m3u8",
+"https://cdn-tiva-video10-logicahost-com-br.smartbit.co/redeistv/redeistv/playlist.m3u8",
+"https://cdn-tiva-video10-logicahost-com-br.smartbit.co/redeistv/redeistv/playlist.m3u8",
+"https://cdn-tiva-video10-logicahost-com-br.smartbit.co/redeistv/redeistv/playlist.m3u8"
+
+// pode colar até 100 aqui
+];
+
+// tocar canal
+function tocar(url){
+if(Hls.isSupported()){
+var hls = new Hls();
+hls.loadSource(url);
+hls.attachMedia(video);
+}else{
+video.src = url;
+}
 }
 
-function minha(){
-document.getElementById("video").src =
-"https://www.youtube.com/embed/videoseries?list=PLhgX6O9sLdD5jNGhK7565hTj_NrHtylhy";
+// criar botões
+for(let i=0;i<canais.length;i++){
+let btn = document.createElement("button");
+btn.innerHTML = "Canal " + (i+1);
+btn.onclick = function(){
+tocar(canais[i]);
+};
+document.getElementById("lista").appendChild(btn);
 }
 
-function gospel(){
-document.getElementById("video").src =
-"https://www.youtube.com/embed/videoseries?list=PLhgX6O9sLdD5jNGhK7565hTj_NrHtylhy";
-}
+// iniciar primeiro
+tocar(canais[0]);
 </script>
 
 </body>
