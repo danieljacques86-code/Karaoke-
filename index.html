@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TV PREMIUM VIP</title>
+<title>IPTV AUTOMÁTICO VIP</title>
 
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
@@ -14,158 +14,143 @@ font-family:Arial;
 color:white;
 text-align:center;
 overflow:hidden;
+background:black;
 }
 
-/* 🎥 VIDEO FUNDO */
 #bg{
 position:fixed;
-right:0;
-bottom:0;
 min-width:100%;
 min-height:100%;
 z-index:-1;
-filter:brightness(0.3);
+filter:brightness(0.25);
 }
 
-/* LOGIN */
 .login{
 position:absolute;
 top:50%;
 left:50%;
 transform:translate(-50%,-50%);
-background:rgba(0,0,0,0.8);
+background:rgba(0,0,0,0.9);
 padding:30px;
 border-radius:15px;
-box-shadow:0 0 20px orange;
 }
 
-input{
-padding:12px;
-margin:8px;
-border:none;
-border-radius:8px;
-font-size:16px;
-}
+input{padding:12px;margin:8px;border-radius:8px;border:none}
+button{padding:12px 18px;border:none;border-radius:10px;background:orange;color:white;font-weight:bold}
 
-button{
-padding:12px 20px;
-border:none;
-border-radius:10px;
-background:orange;
-color:white;
-font-size:18px;
-font-weight:bold;
-}
-
-button:hover{background:red}
-
-/* PLAYER */
-#painel{
-display:none;
-padding-top:10px;
-}
-
-header{
-font-size:26px;
-font-weight:bold;
-margin:10px;
-}
+#painel{display:none}
 
 video{
 width:95%;
 max-width:900px;
 height:260px;
 border-radius:12px;
-box-shadow:0 0 20px orange;
-background:black;
+margin-top:10px;
 }
 
 .lista{
-height:300px;
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+max-height:320px;
 overflow:auto;
-margin-top:15px;
 }
+
+.card{
+width:110px;
+margin:5px;
+background:#111;
+border-radius:10px;
+padding:5px;
+cursor:pointer;
+font-size:12px;
+}
+.card:hover{background:red}
 </style>
 </head>
 
 <body>
 
-<!-- VIDEO FUNDO -->
 <video autoplay muted loop id="bg">
 <source src="https://assets-static.invideo.io/files/Generative_v30_b53e1e8491.mp4" type="video/mp4">
 </video>
 
-<!-- LOGIN -->
 <div class="login" id="login">
 <h2>🔒 ACESSO VIP</h2>
-<input type="text" id="user" placeholder="Usuário"><br>
-<input type="password" id="pass" placeholder="Senha"><br>
+<input id="user" placeholder="Usuário"><br>
+<input id="pass" type="password" placeholder="Senha"><br>
 <button onclick="entrar()">ENTRAR</button>
 </div>
 
-<!-- PAINEL -->
 <div id="painel">
-<header>📺 TV PREMIUM ONLINE</header>
+<h2>📺 IPTV AUTOMÁTICO</h2>
 <video id="video" controls autoplay></video>
 <div class="lista" id="lista"></div>
 </div>
 
 <script>
-// LOGIN
 function entrar(){
-var u=document.getElementById("user").value;
-var p=document.getElementById("pass").value;
-
-if(u==="admin" && p==="1234"){
-document.getElementById("login").style.display="none";
-document.getElementById("painel").style.display="block";
+if(user.value==="admin" && pass.value==="1234"){
+login.style.display="none";
+painel.style.display="block";
+carregarLista();
 }else{
-alert("Senha incorreta");
+alert("Senha errada");
 }
 }
 
 var video = document.getElementById('video');
 
-/* 
-🔥 COLE AQUI SEUS LINKS M3U8 🔥
-Troque depois
-*/
-var canais = [
-
-"COLE_AQUI_LINK_1",
-"COLE_AQUI_LINK_2",
-
-// EXEMPLOS
-"https://cdn-tiva-video01-soultv-com-br.smartbit.co/bradoky/bradoky/playlist.m3u8",
-"https://cdn-tiva-video10-logicahost-com-br.smartbit.co/redeistv/redeistv/playlist.m3u8",
-
-// repetir até 100
-"https://cdn-tiva-video10-logicahost-com-br.smartbit.co/redeistv/redeistv/playlist.m3u8",
-"https://cdn-tiva-video10-logicahost-com-br.smartbit.co/redeistv/redeistv/playlist.m3u8"
-
-];
-
-// tocar
 function tocar(url){
-if(Hls.isSupported()){
-var hls = new Hls();
+if(Hls.isSupported() && url.includes(".m3u8")){
+var hls=new Hls();
 hls.loadSource(url);
 hls.attachMedia(video);
 }else{
-video.src = url;
+video.src=url;
 }
 }
 
-// criar botões
-for(let i=0;i<canais.length;i++){
-let btn=document.createElement("button");
-btn.innerHTML="Canal "+(i+1);
-btn.onclick=function(){tocar(canais[i]);};
-document.getElementById("lista").appendChild(btn);
+/* ===================================
+🔥 COLE AQUI SUA LISTA IPTV
+===================================*/
+
+// 🔥 LINK DEMONSTRATIVO (funciona)
+var listaURL="https://iptv-org.github.io/iptv/index.m3u";
+
+/*
+EXEMPLO DEPOIS TROQUE:
+
+var listaURL="https://meusite.com/lista.m3u";
+ou
+var listaURL="https://meudropbox/lista.txt";
+*/
+
+async function carregarLista(){
+let res=await fetch(listaURL);
+let txt=await res.text();
+
+let linhas=txt.split("\n");
+
+let nome="Canal";
+
+for(let i=0;i<linhas.length;i++){
+
+if(linhas[i].includes("#EXTINF")){
+nome=linhas[i].split(",")[1];
 }
 
-// iniciar
-tocar(canais[0]);
+if(linhas[i].includes("http")){
+let url=linhas[i].trim();
+
+let div=document.createElement("div");
+div.className="card";
+div.innerHTML=nome;
+div.onclick=function(){tocar(url)};
+lista.appendChild(div);
+}
+}
+}
 </script>
 
 </body>
