@@ -3,24 +3,72 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>📺 PLAYER TV ONLINE</title>
+<title>TV PREMIUM VIP</title>
 
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
 <style>
 body{
 margin:0;
-background:black;
 font-family:Arial;
 color:white;
 text-align:center;
+overflow:hidden;
+}
+
+/* 🎥 VIDEO FUNDO */
+#bg{
+position:fixed;
+right:0;
+bottom:0;
+min-width:100%;
+min-height:100%;
+z-index:-1;
+filter:brightness(0.3);
+}
+
+/* LOGIN */
+.login{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+background:rgba(0,0,0,0.8);
+padding:30px;
+border-radius:15px;
+box-shadow:0 0 20px orange;
+}
+
+input{
+padding:12px;
+margin:8px;
+border:none;
+border-radius:8px;
+font-size:16px;
+}
+
+button{
+padding:12px 20px;
+border:none;
+border-radius:10px;
+background:orange;
+color:white;
+font-size:18px;
+font-weight:bold;
+}
+
+button:hover{background:red}
+
+/* PLAYER */
+#painel{
+display:none;
+padding-top:10px;
 }
 
 header{
-background:linear-gradient(90deg,#ff0000,#ff9900,#ff0000);
-padding:15px;
-font-size:24px;
+font-size:26px;
 font-weight:bold;
+margin:10px;
 }
 
 video{
@@ -28,54 +76,76 @@ width:95%;
 max-width:900px;
 height:260px;
 border-radius:12px;
-box-shadow:0 0 20px #ff9900;
+box-shadow:0 0 20px orange;
 background:black;
-margin-top:10px;
 }
 
 .lista{
-margin-top:15px;
-height:350px;
+height:300px;
 overflow:auto;
-}
-
-button{
-background:#ff9900;
-color:white;
-border:none;
-padding:10px;
-margin:4px;
-border-radius:10px;
-font-size:15px;
-font-weight:bold;
-}
-
-button:hover{
-background:red;
+margin-top:15px;
 }
 </style>
 </head>
 
 <body>
 
-<header>📺 TV AO VIVO - LISTA COMPLETA</header>
+<!-- VIDEO FUNDO -->
+<video autoplay muted loop id="bg">
+<source src="https://assets-static.invideo.io/files/Generative_v30_b53e1e8491.mp4" type="video/mp4">
+</video>
 
+<!-- LOGIN -->
+<div class="login" id="login">
+<h2>🔒 ACESSO VIP</h2>
+<input type="text" id="user" placeholder="Usuário"><br>
+<input type="password" id="pass" placeholder="Senha"><br>
+<button onclick="entrar()">ENTRAR</button>
+</div>
+
+<!-- PAINEL -->
+<div id="painel">
+<header>📺 TV PREMIUM ONLINE</header>
 <video id="video" controls autoplay></video>
-
 <div class="lista" id="lista"></div>
+</div>
 
 <script>
+// LOGIN
+function entrar(){
+var u=document.getElementById("user").value;
+var p=document.getElementById("pass").value;
+
+if(u==="admin" && p==="1234"){
+document.getElementById("login").style.display="none";
+document.getElementById("painel").style.display="block";
+}else{
+alert("Senha incorreta");
+}
+}
+
 var video = document.getElementById('video');
 
-// 🔥 AQUI OS 100 LINKS (troque depois)
+/* 
+🔥 COLE AQUI SEUS LINKS M3U8 🔥
+Troque depois
+*/
 var canais = [
-"https://cdn-tiva-video10-logicahost-com-br.smartbit.co/redeistv/redeistv/playlist.m3u8",
+
+"COLE_AQUI_LINK_1",
+"COLE_AQUI_LINK_2",
+
+// EXEMPLOS
+"https://cdn-tiva-video01-soultv-com-br.smartbit.co/bradoky/bradoky/playlist.m3u8",
 "https://cdn-tiva-video10-logicahost-com-br.smartbit.co/redeistv/redeistv/playlist.m3u8",
 
-// pode colar até 100 aqui
+// repetir até 100
+"https://cdn-tiva-video10-logicahost-com-br.smartbit.co/redeistv/redeistv/playlist.m3u8",
+"https://cdn-tiva-video10-logicahost-com-br.smartbit.co/redeistv/redeistv/playlist.m3u8"
+
 ];
 
-// tocar canal
+// tocar
 function tocar(url){
 if(Hls.isSupported()){
 var hls = new Hls();
@@ -88,15 +158,13 @@ video.src = url;
 
 // criar botões
 for(let i=0;i<canais.length;i++){
-let btn = document.createElement("button");
-btn.innerHTML = "Canal " + (i+1);
-btn.onclick = function(){
-tocar(canais[i]);
-};
+let btn=document.createElement("button");
+btn.innerHTML="Canal "+(i+1);
+btn.onclick=function(){tocar(canais[i]);};
 document.getElementById("lista").appendChild(btn);
 }
 
-// iniciar primeiro
+// iniciar
 tocar(canais[0]);
 </script>
 
