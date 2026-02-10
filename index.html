@@ -3,58 +3,155 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🎬 Player Filmes e Séries</title>
+<title>IPTV AUTOMÁTICO VIP</title>
+
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
 <style>
 body{
-background:black;
-color:white;
-font-family:Arial;
-text-align:center;
 margin:0;
+font-family:Arial;
+color:white;
+text-align:center;
+overflow:hidden;
+background:black;
 }
 
-header{
-background:#111;
-padding:15px;
-font-size:22px;
-color:#00ffcc;
+#bg{
+position:fixed;
+min-width:100%;
+min-height:100%;
+z-index:-1;
+filter:brightness(0.25);
 }
 
-.player{
-margin:20px;
+.login{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+background:rgba(0,0,0,0.9);
+padding:30px;
+border-radius:15px;
 }
+
+input{padding:12px;margin:8px;border-radius:8px;border:none}
+button{padding:12px 18px;border:none;border-radius:10px;background:orange;color:white;font-weight:bold}
+
+#painel{display:none}
 
 video{
 width:95%;
 max-width:900px;
-border-radius:10px;
-box-shadow:0 0 20px #00ffcc;
+height:260px;
+border-radius:12px;
+margin-top:10px;
+}
+
+.lista{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+max-height:320px;
+overflow:auto;
 }
 
 .card{
+width:110px;
+margin:5px;
 background:#111;
-margin:15px;
-padding:15px;
 border-radius:10px;
+padding:5px;
+cursor:pointer;
+font-size:12px;
 }
+.card:hover{background:red}
 </style>
 </head>
 
 <body>
 
-<header>🎬 FILMES E SÉRIES ONLINE</header>
-
-<div class="card">
-<h2>🍿 Filme / Episódio</h2>
-<div class="player">
-
-<video controls autoplay>
-<source src="https://drive.google.com/uc?export=download&id=1lK9kt-x6lf7N7ffRSH7VAX7LxWo06CEI">
+<video autoplay muted loop id="bg">
+<source src="https://assets-static.invideo.io/files/Generative_v30_b53e1e8491.mp4" type="video/mp4">
 </video>
 
+<div class="login" id="login">
+<h2>🔒 ACESSO VIP</h2>
+<input id="user" placeholder="Usuário"><br>
+<input id="pass" type="password" placeholder="Senha"><br>
+<button onclick="entrar()">ENTRAR</button>
 </div>
+
+<div id="painel">
+<h2>📺 IPTV AUTOMÁTICO</h2>
+<video id="video" controls autoplay></video>
+<div class="lista" id="lista"></div>
 </div>
+
+<script>
+function entrar(){
+if(user.value==="admin" && pass.value==="1234"){
+login.style.display="none";
+painel.style.display="block";
+carregarLista();
+}else{
+alert("Senha errada");
+}
+}
+
+var video = document.getElementById('video');
+
+function tocar(url){
+if(Hls.isSupported() && url.includes(".m3u8")){
+var hls=new Hls();
+hls.loadSource(url);
+hls.attachMedia(video);
+}else{
+video.src=url;
+}
+}
+
+/* ===================================
+🔥 COLE AQUI SUA LISTA IPTV
+===================================*/
+
+// 🔥 LINK DEMONSTRATIVO (funciona)
+var listaURL="https://iptv-org.github.io/iptv/index.m3u";
+
+/*
+EXEMPLO DEPOIS TROQUE:
+
+var listaURL="https://meusite.com/lista.m3u";
+ou
+var listaURL="https://meudropbox/lista.txt";
+*/
+
+async function carregarLista(){
+let res=await fetch(listaURL);
+let txt=await res.text();
+
+let linhas=txt.split("\n");
+
+let nome="Canal";
+
+for(let i=0;i<linhas.length;i++){
+
+if(linhas[i].includes("#EXTINF")){
+nome=linhas[i].split(",")[1];
+}
+
+if(linhas[i].includes("http")){
+let url=linhas[i].trim();
+
+let div=document.createElement("div");
+div.className="card";
+div.innerHTML=nome;
+div.onclick=function(){tocar(url)};
+lista.appendChild(div);
+}
+}
+}
+</script>
 
 </body>
 </html>
