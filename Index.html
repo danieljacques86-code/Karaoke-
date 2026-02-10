@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🎤 Karaokê Show</title>
+<title>🎤 Karaokê Show Online</title>
 
 <style>
 body{
@@ -17,48 +17,53 @@ text-align:center;
 header{
 background:linear-gradient(90deg,#ff0000,#ff9900,#ff0000);
 padding:15px;
-font-size:28px;
+font-size:24px;
 font-weight:bold;
 }
 
 .sub{
-color:yellow;
-margin-top:5px;
+margin:10px;
+font-size:18px;
 }
 
 .player{
-margin-top:15px;
+width:95%;
+margin:auto;
 }
 
 iframe{
-width:95%;
-height:420px;
-border:4px solid yellow;
+width:100%;
+height:260px;
+border:none;
 border-radius:12px;
-box-shadow:0 0 30px red;
+box-shadow:0 0 15px #ff9900;
 }
 
 .botoes{
-margin-top:20px;
+margin-top:15px;
 }
 
 button{
-background:red;
+background:#ff9900;
 color:white;
 border:none;
-padding:15px;
+padding:12px 15px;
 margin:5px;
+border-radius:12px;
 font-size:16px;
-border-radius:10px;
+font-weight:bold;
+box-shadow:0 0 10px #000;
 }
 
 button:hover{
-background:orange;
+background:#ff0000;
 }
 
 footer{
 margin-top:20px;
-color:#aaa;
+padding:12px;
+background:#111;
+font-size:14px;
 }
 </style>
 </head>
@@ -66,41 +71,45 @@ color:#aaa;
 <body>
 
 <header>🎤 KARAOKÊ SHOW ONLINE</header>
-<div class="sub">Escolha e cante 🎶</div>
+<div class="sub">Escolha sua música e cante 🎶</div>
 
 <div class="player">
 <iframe id="video"
-src="https://www.youtube.com/embed/videoseries?list=PLhgX6O9sLdD757_SdGmHp-p5j3djuTl5t"
+src="https://www.youtube.com/embed/videoseries?list=PLhgX6O9sLdD5jNGhK7565hTj_NrHtylhy"
 allowfullscreen></iframe>
 </div>
 
 <div class="botoes">
+
 <button onclick="minha()">🎤 Minha Playlist</button>
 
-<!-- NOVO BOTÃO GOSPEL (SUA PLAYLIST) -->
-<button onclick="gospel()">🙏 Gospel Playlist</button>
+<button onclick="gospel()">🙏 Gospel</button>
 
-<button onclick="trocar('karaoke gospel harpa louvor')">🎶 Gospel</button>
+<button onclick="trocar('karaoke gospel harpa louvor')">🎶 Harpa Gospel</button>
+
 <button onclick="trocar('karaoke sertanejo raiz e atual')">🤠 Sertanejo</button>
+
 <button onclick="trocar('karaoke flashback anos 80 90')">🕺 Flashback</button>
-<button onclick="trocar('karaoke musica popular brasileira')">🎤 Popular</button>
+
+<button onclick="trocar('karaoke musica popular brasileira')">🎤 MPB</button>
+
 <button onclick="trocar('playback banda labaredas karaoke')">🔥 Banda Labaredas</button>
+
 </div>
 
-<footer>Seu karaokê digital online</footer>
+<footer>Seu karaokê digital online 🎤</footer>
 
 <script>
 function trocar(busca){
 document.getElementById("video").src =
-"https://www.youtube.com/embed?listType=search&list="+encodeURIComponent(busca);
+"https://www.youtube.com/embed?listType=search&list=" + encodeURIComponent(busca);
 }
 
 function minha(){
 document.getElementById("video").src =
-"https://www.youtube.com/embed/videoseries?list=PLhgX6O9sLdD757_SdGmHp-p5j3djuTl5t";
+"https://www.youtube.com/embed/videoseries?list=PLhgX6O9sLdD5jNGhK7565hTj_NrHtylhy";
 }
 
-/* SUA PLAYLIST GOSPEL NOVA */
 function gospel(){
 document.getElementById("video").src =
 "https://www.youtube.com/embed/videoseries?list=PLhgX6O9sLdD5jNGhK7565hTj_NrHtylhy";
