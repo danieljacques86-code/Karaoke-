@@ -3,20 +3,42 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>📺 TV + Rádio Automático</title>
+<title>IPTV AUTOMÁTICO VIP</title>
 
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
 <style>
 body{
 margin:0;
-background:black;
 font-family:Arial;
 color:white;
 text-align:center;
+overflow:hidden;
+background:black;
 }
 
-h2{margin-top:10px}
+#bg{
+position:fixed;
+min-width:100%;
+min-height:100%;
+z-index:-1;
+filter:brightness(0.25);
+}
+
+.login{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+background:rgba(0,0,0,0.9);
+padding:30px;
+border-radius:15px;
+}
+
+input{padding:12px;margin:8px;border-radius:8px;border:none}
+button{padding:12px 18px;border:none;border-radius:10px;background:orange;color:white;font-weight:bold}
+
+#painel{display:none}
 
 video{
 width:95%;
@@ -24,36 +46,24 @@ max-width:900px;
 height:260px;
 border-radius:12px;
 margin-top:10px;
-background:black;
-}
-
-button{
-padding:12px 20px;
-border:none;
-border-radius:10px;
-background:red;
-color:white;
-font-size:16px;
-margin:5px;
 }
 
 .lista{
 display:flex;
 flex-wrap:wrap;
 justify-content:center;
-max-height:300px;
+max-height:320px;
 overflow:auto;
-margin-top:10px;
 }
 
 .card{
-width:140px;
+width:120px;
 margin:5px;
 background:#111;
 border-radius:10px;
 padding:8px;
 cursor:pointer;
-font-size:13px;
+font-size:12px;
 }
 .card:hover{background:red}
 </style>
@@ -61,130 +71,124 @@ font-size:13px;
 
 <body>
 
-<h2>📺 TV + 🎵 Rádio Automático</h2>
+<video autoplay muted loop id="bg">
+<source src="https://assets-static.invideo.io/files/Generative_v30_b53e1e8491.mp4" type="video/mp4">
+</video>
 
+<div class="login" id="login">
+<h2>🔒 ACESSO VIP</h2>
+<input id="user" placeholder="Usuário"><br>
+<input id="pass" type="password" placeholder="Senha"><br>
+<button onclick="entrar()">ENTRAR</button>
+</div>
+
+<div id="painel">
+<h2>📺 IPTV + MP3 AUTOMÁTICO</h2>
 <video id="video" controls></video>
-
-<br>
-<button onclick="iniciarRadio()">▶ Iniciar Rádio</button>
-<button onclick="pararTudo()">⏹ Parar</button>
-
 <div class="lista" id="lista"></div>
+</div>
 
 <script>
-var video = document.getElementById("video");
+function entrar(){
+if(user.value==="admin" && pass.value==="1234"){
+login.style.display="none";
+painel.style.display="block";
+carregarLista();
+}else{
+alert("Senha errada");
+}
+}
+
+var video = document.getElementById('video');
 var audio = new Audio();
 
-var playlistRadio = [];
-var radioIndex = 0;
+/* =========================================
+🔥 PLAYER UNIVERSAL MP3 + RADIO + IPTV + MP4
+=========================================*/
+function tocar(url){
 
-/* 🔥 SUA LISTA GITHUB */
+// ================= MP3 RADIO =================
+if(url.includes("google") || url.endsWith(".mp3")){
+
+video.pause();
+video.removeAttribute("src");
+video.style.display="none";
+
+// corrige Google Drive
+if(url.includes("drive.google")){
+url = url.replace("uc?export=download&id=","uc?export=open&id=");
+}
+
+audio.pause();
+audio.src = url;
+audio.crossOrigin="anonymous";
+audio.load();
+
+audio.play().then(()=>{
+console.log("🎵 Tocando música");
+}).catch(()=>{
+alert("👉 Clique novamente na música");
+});
+
+return;
+}
+
+// ================= IPTV M3U8 =================
+if(url.includes(".m3u8")){
+video.style.display="block";
+audio.pause();
+
+if(Hls.isSupported()){
+var hls = new Hls();
+hls.loadSource(url);
+hls.attachMedia(video);
+hls.on(Hls.Events.MANIFEST_PARSED,function(){
+video.play();
+});
+}else{
+video.src=url;
+video.play();
+}
+return;
+}
+
+// ================= MP4 =================
+video.style.display="block";
+audio.pause();
+video.src=url;
+video.load();
+video.play();
+}
+
+/* ===================================
+🔥 SUA LISTA GITHUB AQUI
+===================================*/
 var listaURL="https://raw.githubusercontent.com/danieljacques86-code/Listaplus/main/lista.m3u";
 
-/* =========================
-CARREGAR LISTA
-=========================*/
-async function carregar(){
-let res = await fetch(listaURL);
-let txt = await res.text();
+async function carregarLista(){
+let res=await fetch(listaURL);
+let txt=await res.text();
 
-let linhas = txt.split("\n");
+let linhas=txt.split("\n");
 let nome="Canal";
 
 for(let i=0;i<linhas.length;i++){
 
 if(linhas[i].includes("#EXTINF")){
-nome = linhas[i].split(",")[1];
+nome=linhas[i].split(",")[1];
 }
 
 if(linhas[i].includes("http")){
-let url = linhas[i].trim();
+let url=linhas[i].trim();
 
-// cria botão
 let div=document.createElement("div");
 div.className="card";
-div.innerHTML="▶ "+nome;
-div.onclick=function(){tocar(url,nome)};
+div.innerHTML=nome;
+div.onclick=function(){tocar(url)};
 lista.appendChild(div);
-
-// adiciona rádio se mp3
-if(url.includes(".mp3") || url.includes("google")){
-playlistRadio.push({nome:nome,url:url});
 }
 }
 }
-}
-
-/* =========================
-TOCAR VIDEO OU MUSICA
-=========================*/
-function tocar(url,nome){
-
-// 🎵 MP3
-if(url.includes(".mp3") || url.includes("google")){
-video.pause();
-video.style.display="none";
-
-audio.src=url;
-audio.play();
-document.title="🎵 "+nome;
-return;
-}
-
-// 📡 M3U8
-if(Hls.isSupported() && url.includes(".m3u8")){
-video.style.display="block";
-audio.pause();
-
-var hls=new Hls();
-hls.loadSource(url);
-hls.attachMedia(video);
-document.title="📺 "+nome;
-return;
-}
-
-// 🎬 MP4
-video.style.display="block";
-audio.pause();
-video.src=url;
-video.play();
-document.title="📺 "+nome;
-}
-
-/* =========================
-RÁDIO AUTOMÁTICO
-=========================*/
-function iniciarRadio(){
-if(playlistRadio.length==0){
-alert("Sem músicas na lista");
-return;
-}
-tocarRadio();
-}
-
-function tocarRadio(){
-audio.src = playlistRadio[radioIndex].url;
-audio.play();
-
-document.title="📻 Rádio: "+playlistRadio[radioIndex].nome;
-
-audio.onended=function(){
-radioIndex++;
-if(radioIndex>=playlistRadio.length){radioIndex=0;}
-tocarRadio();
-}
-}
-
-/* =========================
-PARAR
-=========================*/
-function pararTudo(){
-audio.pause();
-video.pause();
-}
-
-/* iniciar */
-carregar();
 </script>
 
 </body>
