@@ -57,8 +57,8 @@ overflow:auto;
 }
 
 .card{
-width:120px;
-margin:5px;
+width:130px;
+margin:6px;
 background:#111;
 border-radius:10px;
 padding:8px;
@@ -83,7 +83,7 @@ font-size:12px;
 </div>
 
 <div id="painel">
-<h2>📺 IPTV + MP3 AUTOMÁTICO</h2>
+<h2>📺 PLAYER VIP COMPLETO</h2>
 <video id="video" controls></video>
 <div class="lista" id="lista"></div>
 </div>
@@ -99,47 +99,36 @@ alert("Senha errada");
 }
 }
 
-var video = document.getElementById('video');
-var audio = new Audio();
+var video=document.getElementById('video');
+var audio=new Audio();
 
-/* =========================================
-🔥 PLAYER UNIVERSAL MP3 + RADIO + IPTV + MP4
-=========================================*/
+/* ===================================
+🎬 PLAYER POR FAIXA
+===================================*/
 function tocar(url){
 
-// ================= MP3 RADIO =================
-if(url.includes("google") || url.endsWith(".mp3")){
-
+// 🔵 FAIXA 1 — MP3
+if(url.endsWith(".mp3") || url.includes("google")){
 video.pause();
 video.removeAttribute("src");
 video.style.display="none";
 
-// corrige Google Drive
-if(url.includes("drive.google")){
-url = url.replace("uc?export=download&id=","uc?export=open&id=");
-}
-
 audio.pause();
-audio.src = url;
-audio.crossOrigin="anonymous";
+audio.src=url;
 audio.load();
-
-audio.play().then(()=>{
-console.log("🎵 Tocando música");
-}).catch(()=>{
-alert("👉 Clique novamente na música");
+audio.play().catch(()=>{
+alert("Clique novamente na música");
 });
-
 return;
 }
 
-// ================= IPTV M3U8 =================
+// 🟢 FAIXA 2 — IPTV M3U8
 if(url.includes(".m3u8")){
 video.style.display="block";
 audio.pause();
 
 if(Hls.isSupported()){
-var hls = new Hls();
+var hls=new Hls();
 hls.loadSource(url);
 hls.attachMedia(video);
 hls.on(Hls.Events.MANIFEST_PARSED,function(){
@@ -152,7 +141,20 @@ video.play();
 return;
 }
 
-// ================= MP4 =================
+// 🟡 FAIXA 3 — RADIO ONLINE
+if(url.includes("radio") || url.includes("stream")){
+video.pause();
+video.removeAttribute("src");
+video.style.display="none";
+
+audio.pause();
+audio.src=url;
+audio.load();
+audio.play();
+return;
+}
+
+// 🔴 FAIXA 4 — MP4
 video.style.display="block";
 audio.pause();
 video.src=url;
@@ -161,7 +163,7 @@ video.play();
 }
 
 /* ===================================
-🔥 SUA LISTA GITHUB AQUI
+🔥 SUA LISTA GITHUB
 ===================================*/
 var listaURL="https://raw.githubusercontent.com/danieljacques86-code/Listaplus/main/lista.m3u";
 
@@ -180,10 +182,16 @@ nome=linhas[i].split(",")[1];
 
 if(linhas[i].includes("http")){
 let url=linhas[i].trim();
+let tipo="🎬";
+
+if(url.endsWith(".mp3") || url.includes("google")) tipo="🎵 MP3";
+else if(url.includes(".m3u8")) tipo="📡 IPTV";
+else if(url.includes("radio")||url.includes("stream")) tipo="📻 RADIO";
+else if(url.endsWith(".mp4")) tipo="🎥 MP4";
 
 let div=document.createElement("div");
 div.className="card";
-div.innerHTML=nome;
+div.innerHTML=tipo+"<br>"+nome;
 div.onclick=function(){tocar(url)};
 lista.appendChild(div);
 }
