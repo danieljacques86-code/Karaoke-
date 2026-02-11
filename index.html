@@ -57,11 +57,11 @@ overflow:auto;
 }
 
 .card{
-width:110px;
-margin:5px;
+width:130px;
+margin:6px;
 background:#111;
 border-radius:10px;
-padding:5px;
+padding:8px;
 cursor:pointer;
 font-size:12px;
 }
@@ -83,8 +83,8 @@ font-size:12px;
 </div>
 
 <div id="painel">
-<h2>📺 IPTV AUTOMÁTICO</h2>
-<video id="video" controls autoplay></video>
+<h2>📺 PLAYER VIP COMPLETO</h2>
+<video id="video" controls></video>
 <div class="lista" id="lista"></div>
 </div>
 
@@ -99,39 +99,79 @@ alert("Senha errada");
 }
 }
 
-var video = document.getElementById('video');
+var video=document.getElementById('video');
+var audio=new Audio();
 
+/* ===================================
+🎬 PLAYER POR FAIXA
+===================================*/
 function tocar(url){
-if(Hls.isSupported() && url.includes(".m3u8")){
+
+// 🔵 FAIXA 1 — MP3
+if(url.endsWith(".mp3") || url.includes("google")){
+video.pause();
+video.removeAttribute("src");
+video.style.display="none";
+
+audio.pause();
+audio.src=url;
+audio.load();
+audio.play().catch(()=>{
+alert("Clique novamente na música");
+});
+return;
+}
+
+// 🟢 FAIXA 2 — IPTV M3U8
+if(url.includes(".m3u8")){
+video.style.display="block";
+audio.pause();
+
+if(Hls.isSupported()){
 var hls=new Hls();
 hls.loadSource(url);
 hls.attachMedia(video);
+hls.on(Hls.Events.MANIFEST_PARSED,function(){
+video.play();
+});
 }else{
 video.src=url;
+video.play();
 }
+return;
+}
+
+// 🟡 FAIXA 3 — RADIO ONLINE
+if(url.includes("radio") || url.includes("stream")){
+video.pause();
+video.removeAttribute("src");
+video.style.display="none";
+
+audio.pause();
+audio.src=url;
+audio.load();
+audio.play();
+return;
+}
+
+// 🔴 FAIXA 4 — MP4
+video.style.display="block";
+audio.pause();
+video.src=url;
+video.load();
+video.play();
 }
 
 /* ===================================
-🔥 COLE AQUI SUA LISTA IPTV
+🔥 SUA LISTA GITHUB
 ===================================*/
-
-// 🔥 LINK DEMONSTRATIVO (funciona)
-var listaURL="https://raw.githubusercontent.com/danieljacques86-code/Listaplus/main/lista.txt";
-
-/*
-EXEMPLO DEPOIS TROQUE:
-
-var listaURL="https://meusite.com/lista.m3u";
-ou
-var listaURL="https://meudropbox/lista.txt";
-*/
+var listaURL="https://raw.githubusercontent.com/danieljacques86-code/Listaplus/main/lista.m3u";
 
 async function carregarLista(){
 let res=await fetch(listaURL);
 let txt=await res.text();
 
 let linhas=txt.split("\n");
-
 let nome="Canal";
 
 for(let i=0;i<linhas.length;i++){
@@ -142,10 +182,16 @@ nome=linhas[i].split(",")[1];
 
 if(linhas[i].includes("http")){
 let url=linhas[i].trim();
+let tipo="🎬";
+
+if(url.endsWith(".mp3") || url.includes("google")) tipo="🎵 MP3";
+else if(url.includes(".m3u8")) tipo="📡 IPTV";
+else if(url.includes("radio")||url.includes("stream")) tipo="📻 RADIO";
+else if(url.endsWith(".mp4")) tipo="🎥 MP4";
 
 let div=document.createElement("div");
 div.className="card";
-div.innerHTML=nome;
+div.innerHTML=tipo+"<br>"+nome;
 div.onclick=function(){tocar(url)};
 lista.appendChild(div);
 }
