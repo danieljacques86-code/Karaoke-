@@ -95,8 +95,8 @@ footer{
     <option value="youtube:karaoke sertanejo raiz e atual">🤠 Sertanejo (YouTube)</option>
     <option value="youtube:karaoke flashback anos 80 90">🕺 Flashback (YouTube)</option>
     <option value="youtube:karaoke musica popular brasileira">🎤 MPB (YouTube)</option>
-    <option value="mp3:https://drive.google.com/uc?Export=download&id=1Qe8yVSTy9fF2ccS4mInY1M6nEMhwBtPS">🎧 MP3 Exemplo</option>
-    <option value="mp4:https://drive.google.com/uc?export=download&id=15v0oz0ygFBPvJZn20tADLSmanW8KNDuf">🎬 Lista MP4 (Google Drive)</option>
+    <option value="playlist:https://drive.google.com/uc?export=download&id=1Qe8yVSTy9fF2ccS4mInY1M6nEMhwBtPS">🎧 Playlist MP3 (Google Drive TXT)</option>
+    <option value="mp4:https://drive.google.com/uc?export=download&id=1lK9kt-x6lf7N7ffRSH7VAX7LxWo06CEI">🎬 Lista MP4 (Google Drive)</option>
     <option value="radio:https://stream-ssl.radios.com.br/live">📻 Rádio Online</option>
   </select>
 </div>
@@ -111,11 +111,12 @@ function esconder(){
   document.getElementById("radio").style.display="none";
 }
 
+// Função principal de seleção
 function selecionar(valor){
   if(!valor) return;
   let partes = valor.split(":");
   let tipo = partes[0];
-  let link = partes[1];
+  let link = partes.slice(1).join(":"); // pega o resto
 
   esconder();
 
@@ -128,17 +129,53 @@ function selecionar(valor){
     let mp3 = document.getElementById("mp3player");
     mp3.style.display="block";
     mp3.src = link;
+    mp3.play();
   }
   else if(tipo === "mp4"){
     let mp4 = document.getElementById("mp4player");
     mp4.style.display="block";
     mp4.src = link;
+    mp4.play();
   }
   else if(tipo === "radio"){
     let r = document.getElementById("radio");
     r.style.display="block";
     r.src = link;
     r.play();
+  }
+  else if(tipo === "playlist"){
+    carregarPlaylistTXT(link);
+  }
+}
+
+// Função para carregar TXT com links MP3
+async function carregarPlaylistTXT(linkTXT){
+  try {
+    let resposta = await fetch(linkTXT);
+    let texto = await resposta.text();
+
+    // Divide cada linha em um array de links
+    let lista = texto.split("\n").map(l => l.trim()).filter(l => l.length > 0);
+
+    if(lista.length > 0){
+      let mp3 = document.getElementById("mp3player");
+      mp3.style.display="block";
+      mp3.src = lista[0];
+      mp3.play();
+
+      let indice = 0;
+      mp3.onended = function(){
+        indice++;
+        if(indice < lista.length){
+          mp3.src = lista[indice];
+          mp3.play();
+        }
+      };
+    } else {
+      alert("Nenhum link MP3 encontrado no arquivo TXT.");
+    }
+  } catch(e){
+    alert("Erro ao carregar playlist: " + e);
   }
 }
 </script>
