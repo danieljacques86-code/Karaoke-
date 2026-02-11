@@ -1,155 +1,160 @@
 <!DOCTYPE html>
-
 <html lang="pt-br">
-
 <head>
-
 <meta charset="UTF-8">
-
-<title>WolfTV Play</title>
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎤 Karaokê Show Online</title>
 
 <style>
+body{
+  margin:0;
+  background:black;
+  font-family:Arial;
+  color:white;
+  text-align:center;
+}
 
-body{background:#000;color:#fff;font-family:Arial;text-align:center}
+header{
+  background:linear-gradient(90deg,#ff0000,#ff9900,#ff0000);
+  padding:15px;
+  font-size:24px;
+  font-weight:bold;
+}
 
-input,button{width:90%;padding:12px;margin:8px;border-radius:6px;border:none}
+.sub{
+  margin:10px;
+  font-size:18px;
+}
 
-button{background:#ff9800;color:#000;font-weight:bold}
+.player{
+  width:95%;
+  margin:auto;
+}
 
-#app{display:none}
+iframe, audio, video{
+  width:100%;
+  border:none;
+  border-radius:12px;
+  box-shadow:0 0 15px #ff9900;
+}
 
-iframe{width:100%;height:90vh;border:none}
+audio, video{
+  margin-top:15px;
+}
 
+.botoes{
+  margin-top:15px;
+}
+
+button{
+  background:#ff9900;
+  color:white;
+  border:none;
+  padding:12px 15px;
+  margin:5px;
+  border-radius:12px;
+  font-size:16px;
+  font-weight:bold;
+  box-shadow:0 0 10px #000;
+}
+
+button:hover{
+  background:#ff0000;
+}
+
+footer{
+  margin-top:20px;
+  padding:12px;
+  background:#111;
+  font-size:14px;
+}
 </style>
-
-<!-- Firebase -->
-
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-
-<script>
-
-const firebaseConfig = {
-
-  apiKey: "SUA_API_KEY",
-
-  authDomain: "SEU_PROJETO.firebaseapp.com",
-
-  projectId: "SEU_PROJETO",
-
-};
-
-firebase.initializeApp(firebaseConfig);
-
-const auth = firebase.auth();
-
-const db = firebase.firestore();
-
-</script>
-
 </head>
 
 <body>
 
-<h2>🔐 WolfTV Login</h2>
+<header>🎤 KARAOKÊ SHOW ONLINE</header>
+<div class="sub">Escolha sua música e cante 🎶</div>
 
-<div id="login">
+<div class="player">
+  <!-- Player YouTube -->
+  <iframe id="video"
+  src="https://www.youtube.com/embed/videoseries?list=PLhgX6O9sLdD5jNGhK7565hTj_NrHtylhy"
+  allowfullscreen></iframe>
 
-  <input id="email" placeholder="Email">
+  <!-- Player MP3 -->
+  <audio id="mp3player" controls style="display:none;"></audio>
 
-  <input id="senha" type="password" placeholder="Senha">
+  <!-- Player MP4 -->
+  <video id="mp4player" controls style="display:none;"></video>
 
-  <button onclick="login()">Entrar</button>
-
-  <p id="msg"></p>
-
+  <!-- Player Rádio -->
+  <audio id="radio" controls style="display:none;"></audio>
 </div>
 
-<div id="app">
-
-  <iframe src="https://wolftvplaypremium.blogspot.com"></iframe>
-
+<div class="botoes">
+  <button onclick="minha()">🎤 Minha Playlist</button>
+  <button onclick="gospel()">🙏 Gospel</button>
+  <button onclick="trocar('karaoke gospel harpa louvor')">🎶 Harpa Gospel</button>
+  <button onclick="trocar('karaoke sertanejo raiz e atual')">🤠 Sertanejo</button>
+  <button onclick="trocar('karaoke flashback anos 80 90')">🕺 Flashback</button>
+  <button onclick="trocar('karaoke musica popular brasileira')">🎤 MPB</button>
+  <button onclick="trocar('playback banda labaredas karaoke')">🔥 Banda Labaredas</button>
+  <button onclick="mp3('musica.mp3')">🎧 MP3</button>
+  <button onclick="mp4('https://drive.google.com/uc?export=download&id=1lK9kt-x6lf7N7ffRSH7VAX7LxWo06CEI')">🎬 MP4 Lista</button>
+  <button onclick="radio('https://stream-ssl.radios.com.br/live')">📻 Rádio</button>
 </div>
+
+<footer>Seu karaokê digital online 🎤</footer>
 
 <script>
-
-function login(){
-
-  const email = email.value;
-
-  const senha = senha.value;
-
-  auth.signInWithEmailAndPassword(email, senha)
-
-  .then(res=>{
-
-    verificarAcesso(res.user);
-
-  })
-
-  .catch(()=>msg.innerText="Login inválido");
-
+function esconder(){
+  document.getElementById("video").style.display="none";
+  document.getElementById("mp3player").style.display="none";
+  document.getElementById("mp4player").style.display="none";
+  document.getElementById("radio").style.display="none";
 }
 
-function verificarAcesso(user){
-
-  const adminEmail = "bofab27391@markuto.com";
-
-  if(user.email === adminEmail){
-
-    liberar();
-
-    return;
-
-  }
-
-  const ref = db.collection("users").doc(user.uid);
-
-  ref.get().then(doc=>{
-
-    if(!doc.exists){
-
-      ref.set({inicio: Date.now()});
-
-      liberar();
-
-    } else {
-
-      const dias = (Date.now() - doc.data().inicio) / 86400000;
-
-      if(dias <= 7){
-
-        liberar();
-
-      } else {
-
-        alert("⛔ Teste expirado");
-
-        auth.signOut();
-
-      }
-
-    }
-
-  });
-
+function trocar(busca){
+  esconder();
+  let v = document.getElementById("video");
+  v.style.display="block";
+  v.src = "https://www.youtube.com/embed?listType=search&list=" + encodeURIComponent(busca);
 }
 
-function liberar(){
-
-  document.getElementById("login").style.display="none";
-
-  document.getElementById("app").style.display="block";
-
+function minha(){
+  esconder();
+  let v = document.getElementById("video");
+  v.style.display="block";
+  v.src = "https://www.youtube.com/embed/videoseries?list=PLhgX6O9sLdD5jNGhK7565hTj_NrHtylhy";
 }
 
+function gospel(){
+  minha();
+}
+
+function mp3(link){
+  esconder();
+  let mp3 = document.getElementById("mp3player");
+  mp3.style.display="block";
+  mp3.src = link;
+}
+
+function mp4(link){
+  esconder();
+  let mp4 = document.getElementById("mp4player");
+  mp4.style.display="block";
+  mp4.src = link;
+}
+
+function radio(link){
+  esconder();
+  let r = document.getElementById("radio");
+  r.style.display="block";
+  r.src = link;
+  r.play();
+}
 </script>
 
 </body>
-
 </html>
