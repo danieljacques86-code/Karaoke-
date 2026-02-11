@@ -1,203 +1,155 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IPTV AUTOMÁTICO VIP</title>
 
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<html lang="pt-br">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>WolfTV Play</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-body{
-margin:0;
-font-family:Arial;
-color:white;
-text-align:center;
-overflow:hidden;
-background:black;
-}
 
-#bg{
-position:fixed;
-min-width:100%;
-min-height:100%;
-z-index:-1;
-filter:brightness(0.25);
-}
+body{background:#000;color:#fff;font-family:Arial;text-align:center}
 
-.login{
-position:absolute;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-background:rgba(0,0,0,0.9);
-padding:30px;
-border-radius:15px;
-}
+input,button{width:90%;padding:12px;margin:8px;border-radius:6px;border:none}
 
-input{padding:12px;margin:8px;border-radius:8px;border:none}
-button{padding:12px 18px;border:none;border-radius:10px;background:orange;color:white;font-weight:bold}
+button{background:#ff9800;color:#000;font-weight:bold}
 
-#painel{display:none}
+#app{display:none}
 
-video{
-width:95%;
-max-width:900px;
-height:260px;
-border-radius:12px;
-margin-top:10px;
-}
+iframe{width:100%;height:90vh;border:none}
 
-.lista{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-max-height:320px;
-overflow:auto;
-}
-
-.card{
-width:130px;
-margin:6px;
-background:#111;
-border-radius:10px;
-padding:8px;
-cursor:pointer;
-font-size:12px;
-}
-.card:hover{background:red}
 </style>
+
+<!-- Firebase -->
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+<script>
+
+const firebaseConfig = {
+
+  apiKey: "SUA_API_KEY",
+
+  authDomain: "SEU_PROJETO.firebaseapp.com",
+
+  projectId: "SEU_PROJETO",
+
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const auth = firebase.auth();
+
+const db = firebase.firestore();
+
+</script>
+
 </head>
 
 <body>
 
-<video autoplay muted loop id="bg">
-<source src="https://assets-static.invideo.io/files/Generative_v30_b53e1e8491.mp4" type="video/mp4">
-</video>
+<h2>🔐 WolfTV Login</h2>
 
-<div class="login" id="login">
-<h2>🔒 ACESSO VIP</h2>
-<input id="user" placeholder="Usuário"><br>
-<input id="pass" type="password" placeholder="Senha"><br>
-<button onclick="entrar()">ENTRAR</button>
+<div id="login">
+
+  <input id="email" placeholder="Email">
+
+  <input id="senha" type="password" placeholder="Senha">
+
+  <button onclick="login()">Entrar</button>
+
+  <p id="msg"></p>
+
 </div>
 
-<div id="painel">
-<h2>📺 PLAYER VIP COMPLETO</h2>
-<video id="video" controls></video>
-<div class="lista" id="lista"></div>
+<div id="app">
+
+  <iframe src="https://wolftvplaypremium.blogspot.com"></iframe>
+
 </div>
 
 <script>
-function entrar(){
-if(user.value==="admin" && pass.value==="1234"){
-login.style.display="none";
-painel.style.display="block";
-carregarLista();
-}else{
-alert("Senha errada");
-}
-}
 
-var video=document.getElementById('video');
-var audio=new Audio();
+function login(){
 
-/* ===================================
-🎬 PLAYER POR FAIXA
-===================================*/
-function tocar(url){
+  const email = email.value;
 
-// 🔵 FAIXA 1 — MP3
-if(url.endsWith(".mp3") || url.includes("google")){
-video.pause();
-video.removeAttribute("src");
-video.style.display="none";
+  const senha = senha.value;
 
-audio.pause();
-audio.src=url;
-audio.load();
-audio.play().catch(()=>{
-alert("Clique novamente na música");
-});
-return;
+  auth.signInWithEmailAndPassword(email, senha)
+
+  .then(res=>{
+
+    verificarAcesso(res.user);
+
+  })
+
+  .catch(()=>msg.innerText="Login inválido");
+
 }
 
-// 🟢 FAIXA 2 — IPTV M3U8
-if(url.includes(".m3u8")){
-video.style.display="block";
-audio.pause();
+function verificarAcesso(user){
 
-if(Hls.isSupported()){
-var hls=new Hls();
-hls.loadSource(url);
-hls.attachMedia(video);
-hls.on(Hls.Events.MANIFEST_PARSED,function(){
-video.play();
-});
-}else{
-video.src=url;
-video.play();
-}
-return;
-}
+  const adminEmail = "bofab27391@markuto.com";
 
-// 🟡 FAIXA 3 — RADIO ONLINE
-if(url.includes("radio") || url.includes("stream")){
-video.pause();
-video.removeAttribute("src");
-video.style.display="none";
+  if(user.email === adminEmail){
 
-audio.pause();
-audio.src=url;
-audio.load();
-audio.play();
-return;
-}
+    liberar();
 
-// 🔴 FAIXA 4 — MP4
-video.style.display="block";
-audio.pause();
-video.src=url;
-video.load();
-video.play();
-}
+    return;
 
-/* ===================================
-🔥 SUA LISTA GITHUB
-===================================*/
-var listaURL="https://raw.githubusercontent.com/danieljacques86-code/Listaplus/main/lista.m3u";
+  }
 
-async function carregarLista(){
-let res=await fetch(listaURL);
-let txt=await res.text();
+  const ref = db.collection("users").doc(user.uid);
 
-let linhas=txt.split("\n");
-let nome="Canal";
+  ref.get().then(doc=>{
 
-for(let i=0;i<linhas.length;i++){
+    if(!doc.exists){
 
-if(linhas[i].includes("#EXTINF")){
-nome=linhas[i].split(",")[1];
+      ref.set({inicio: Date.now()});
+
+      liberar();
+
+    } else {
+
+      const dias = (Date.now() - doc.data().inicio) / 86400000;
+
+      if(dias <= 7){
+
+        liberar();
+
+      } else {
+
+        alert("⛔ Teste expirado");
+
+        auth.signOut();
+
+      }
+
+    }
+
+  });
+
 }
 
-if(linhas[i].includes("http")){
-let url=linhas[i].trim();
-let tipo="🎬";
+function liberar(){
 
-if(url.endsWith(".mp3") || url.includes("google")) tipo="🎵 MP3";
-else if(url.includes(".m3u8")) tipo="📡 IPTV";
-else if(url.includes("radio")||url.includes("stream")) tipo="📻 RADIO";
-else if(url.endsWith(".mp4")) tipo="🎥 MP4";
+  document.getElementById("login").style.display="none";
 
-let div=document.createElement("div");
-div.className="card";
-div.innerHTML=tipo+"<br>"+nome;
-div.onclick=function(){tocar(url)};
-lista.appendChild(div);
+  document.getElementById("app").style.display="block";
+
 }
-}
-}
+
 </script>
 
 </body>
+
 </html>
