@@ -42,23 +42,19 @@ audio, video{
   margin-top:15px;
 }
 
-.botoes{
-  margin-top:15px;
-}
-
-button{
+select{
   background:#ff9900;
   color:white;
   border:none;
-  padding:12px 15px;
-  margin:5px;
+  padding:10px;
+  margin:10px;
   border-radius:12px;
   font-size:16px;
   font-weight:bold;
   box-shadow:0 0 10px #000;
 }
 
-button:hover{
+select:hover{
   background:#ff0000;
 }
 
@@ -92,17 +88,17 @@ footer{
   <audio id="radio" controls style="display:none;"></audio>
 </div>
 
-<div class="botoes">
-  <button onclick="minha()">🎤 Minha Playlist</button>
-  <button onclick="gospel()">🙏 Gospel</button>
-  <button onclick="trocar('karaoke gospel harpa louvor')">🎶 Harpa Gospel</button>
-  <button onclick="trocar('karaoke sertanejo raiz e atual')">🤠 Sertanejo</button>
-  <button onclick="trocar('karaoke flashback anos 80 90')">🕺 Flashback</button>
-  <button onclick="trocar('karaoke musica popular brasileira')">🎤 MPB</button>
-  <button onclick="trocar('playback banda labaredas karaoke')">🔥 Banda Labaredas</button>
-  <button onclick="mp3('musica.mp3')">🎧 MP3</button>
-  <button onclick="mp4('https://drive.google.com/uc?export=download&id=1lK9kt-x6lf7N7ffRSH7VAX7LxWo06CEI')">🎬 MP4 Lista</button>
-  <button onclick="radio('https://stream-ssl.radios.com.br/live')">📻 Rádio</button>
+<!-- Menu de seleção -->
+<div>
+  <select id="menu" onchange="selecionar(this.value)">
+    <option value="">🎶 Selecione uma opção</option>
+    <option value="youtube:karaoke sertanejo raiz e atual">🤠 Sertanejo (YouTube)</option>
+    <option value="youtube:karaoke flashback anos 80 90">🕺 Flashback (YouTube)</option>
+    <option value="youtube:karaoke musica popular brasileira">🎤 MPB (YouTube)</option>
+    <option value="mp3:musica.mp3">🎧 MP3 Exemplo</option>
+    <option value="mp4:https://drive.google.com/uc?export=download&id=1lK9kt-x6lf7N7ffRSH7VAX7LxWo06CEI">🎬 Lista MP4 (Google Drive)</option>
+    <option value="radio:https://stream-ssl.radios.com.br/live">📻 Rádio Online</option>
+  </select>
 </div>
 
 <footer>Seu karaokê digital online 🎤</footer>
@@ -115,44 +111,35 @@ function esconder(){
   document.getElementById("radio").style.display="none";
 }
 
-function trocar(busca){
-  esconder();
-  let v = document.getElementById("video");
-  v.style.display="block";
-  v.src = "https://www.youtube.com/embed?listType=search&list=" + encodeURIComponent(busca);
-}
+function selecionar(valor){
+  if(!valor) return;
+  let partes = valor.split(":");
+  let tipo = partes[0];
+  let link = partes[1];
 
-function minha(){
   esconder();
-  let v = document.getElementById("video");
-  v.style.display="block";
-  v.src = "https://www.youtube.com/embed/videoseries?list=PLhgX6O9sLdD5jNGhK7565hTj_NrHtylhy";
-}
 
-function gospel(){
-  minha();
-}
-
-function mp3(link){
-  esconder();
-  let mp3 = document.getElementById("mp3player");
-  mp3.style.display="block";
-  mp3.src = link;
-}
-
-function mp4(link){
-  esconder();
-  let mp4 = document.getElementById("mp4player");
-  mp4.style.display="block";
-  mp4.src = link;
-}
-
-function radio(link){
-  esconder();
-  let r = document.getElementById("radio");
-  r.style.display="block";
-  r.src = link;
-  r.play();
+  if(tipo === "youtube"){
+    let v = document.getElementById("video");
+    v.style.display="block";
+    v.src = "https://www.youtube.com/embed?listType=search&list=" + encodeURIComponent(link);
+  }
+  else if(tipo === "mp3"){
+    let mp3 = document.getElementById("mp3player");
+    mp3.style.display="block";
+    mp3.src = link;
+  }
+  else if(tipo === "mp4"){
+    let mp4 = document.getElementById("mp4player");
+    mp4.style.display="block";
+    mp4.src = link;
+  }
+  else if(tipo === "radio"){
+    let r = document.getElementById("radio");
+    r.style.display="block";
+    r.src = link;
+    r.play();
+  }
 }
 </script>
 
