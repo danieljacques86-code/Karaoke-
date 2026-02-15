@@ -1,1 +1,130 @@
 
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+...
+    <!-- Scripts -->
+    <script src="scripts/app.js"></script>
+</body>
+</html>
+Tool Call
+Function Name:
+Write
+Arguments:
+file_path:
+/home/user/karaoke-upgrade/index.html
+content:
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Karaokê Show Online - Cante suas músicas favoritas com playlists de diversos estilos musicais">
+    <meta name="keywords" content="karaokê, música, playback, gospel, sertanejo, flashback, MPB, banda labaredas">
+    <meta name="author" content="Daniel Jacques">
+    
+    <title>🎤 Karaokê Show</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎤</text></svg>">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <h1 class="header__title">🎤 KARAOKÊ SHOW ONLINE</h1>
+        <p class="header__subtitle">Escolha e cante 🎶</p>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Video Player -->
+        <section class="player" aria-label="Reprodutor de vídeo">
+            <iframe 
+                id="video"
+                class="player__iframe"
+                src="https://www.youtube.com/embed/videoseries?list=PLhgX6O9sLdD757_SdGmHp-p5j3djuTl5t"
+                title="Karaokê Player"
+                allowfullscreen
+                loading="lazy">
+            </iframe>
+        </section>
+
+        <!-- Control Buttons -->
+        <section class="controls" aria-label="Controles de playlist">
+            <div class="controls__buttons">
+                <button 
+                    class="btn btn--primary" 
+                    onclick="minha()"
+                    aria-label="Carregar minha playlist">
+                    🎤 Minha Playlist
+                </button>
+
+                <button 
+                    class="btn btn--primary" 
+                    onclick="gospel()"
+                    aria-label="Carregar playlist gospel">
+                    🙏 Gospel Playlist
+                </button>
+
+                <button 
+                    class="btn btn--secondary" 
+                    onclick="trocar('karaoke gospel harpa louvor')"
+                    aria-label="Buscar músicas gospel">
+                    🎶 Gospel
+                </button>
+
+                <button 
+                    class="btn btn--secondary" 
+                    onclick="trocar('karaoke sertanejo raiz e atual')"
+                    aria-label="Buscar músicas sertanejas">
+                    🤠 Sertanejo
+                </button>
+
+                <button 
+                    class="btn btn--secondary" 
+                    onclick="trocar('karaoke flashback anos 80 90')"
+                    aria-label="Buscar músicas flashback">
+                    🕺 Flashback
+                </button>
+
+                <button 
+                    class="btn btn--secondary" 
+                    onclick="trocar('karaoke musica popular brasileira')"
+                    aria-label="Buscar MPB">
+                    🎤 Popular
+                </button>
+
+                <button 
+                    class="btn btn--secondary" 
+                    onclick="trocar('playback banda labaredas karaoke')"
+                    aria-label="Buscar Banda Labaredas">
+                    🔥 Banda Labaredas
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p class="footer__text">Seu karaokê digital online 🎵</p>
+        <p class="footer__credits">
+            Desenvolvido com ❤️ por Daniel Jacques | 
+            <a href="https://github.com/danieljacques86-code/Karaoke-" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="footer__link">
+                ⭐ GitHub
+            </a>
+        </p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="scripts/app.js"></script>
+</body>
+</html>
+Response
+Created file /home/user/karaoke-upgrade/index.html (3915 characters)
