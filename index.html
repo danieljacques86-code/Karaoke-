@@ -1,129 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎤 Karaokê Show</title>
 
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-...
-    <!-- Scripts -->
-    <script src="scripts/app.js"></script>
-</body>
-</html>
-Tool Call
-Function Name:
-Write
-Arguments:
-file_path:
-/home/user/karaoke-upgrade/index.html
-content:
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Karaokê Show Online - Cante suas músicas favoritas com playlists de diversos estilos musicais">
-    <meta name="keywords" content="karaokê, música, playback, gospel, sertanejo, flashback, MPB, banda labaredas">
-    <meta name="author" content="Daniel Jacques">
-    
-    <title>🎤 Karaokê Show</title>
-    
-    <!-- Favicon -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎤</text></svg>">
-    
-    <!-- Styles -->
-    <link rel="stylesheet" href="styles/main.css">
+<link rel="stylesheet" href="styles/main.css">
+
+<style>
+body{
+    margin:0;
+    font-family:Arial, Helvetica, sans-serif;
+    background:black;
+    color:white;
+    overflow-x:hidden;
+}
+
+/* vídeo fundo */
+#bgvideo{
+    position:fixed;
+    right:0;
+    bottom:0;
+    min-width:100%;
+    min-height:100%;
+    z-index:-2;
+    object-fit:cover;
+    opacity:0.35;
+}
+
+/* imagem lado direito */
+.lado-direito{
+    position:fixed;
+    right:10px;
+    top:50%;
+    transform:translateY(-50%);
+    z-index:5;
+}
+.lado-direito img{
+    width:200px;
+    border-radius:12px;
+    box-shadow:0 0 20px #000;
+}
+
+/* botão link */
+.botao-link{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    background:#00c853;
+    padding:14px 18px;
+    border-radius:12px;
+    font-size:18px;
+    color:white;
+    text-decoration:none;
+    box-shadow:0 0 15px #000;
+    font-weight:bold;
+}
+.botao-link:hover{
+    background:#00e676;
+}
+
+/* player */
+.container{
+    text-align:center;
+    padding:20px;
+}
+.player iframe{
+    width:90%;
+    max-width:900px;
+    height:500px;
+    border-radius:12px;
+    border:0;
+    box-shadow:0 0 20px #000;
+}
+
+/* botões */
+.controls button{
+    padding:12px 18px;
+    margin:6px;
+    border-radius:10px;
+    border:none;
+    font-size:16px;
+    cursor:pointer;
+}
+</style>
 </head>
 
 <body>
-    <!-- Header -->
-    <header class="header">
-        <h1 class="header__title">🎤 KARAOKÊ SHOW ONLINE</h1>
-        <p class="header__subtitle">Escolha e cante 🎶</p>
-    </header>
 
-    <!-- Main Content -->
-    <main class="container">
-        <!-- Video Player -->
-        <section class="player" aria-label="Reprodutor de vídeo">
-            <iframe 
-                id="video"
-                class="player__iframe"
-                src="https://www.youtube.com/embed/videoseries?list=PLhgX6O9sLdD757_SdGmHp-p5j3djuTl5t"
-                title="Karaokê Player"
-                allowfullscreen
-                loading="lazy">
-            </iframe>
-        </section>
+<!-- VIDEO FUNDO -->
+<video autoplay muted loop id="bgvideo">
+<source src="https://video-base-imf-sg.oss-ap-southeast-1.aliyuncs.com/public-uploads/temp/1769161468/1769161468726-home.mp4" type="video/mp4">
+</video>
 
-        <!-- Control Buttons -->
-        <section class="controls" aria-label="Controles de playlist">
-            <div class="controls__buttons">
-                <button 
-                    class="btn btn--primary" 
-                    onclick="minha()"
-                    aria-label="Carregar minha playlist">
-                    🎤 Minha Playlist
-                </button>
+<!-- IMAGEM LADO DIREITO -->
+<div class="lado-direito">
+<img src="https://www.dropbox.com/scl/fi/gftswitawxtqxxoaay77l/aviator.jpg_play_BR.jpg?rlkey=desyqp89aktbsyuczxukatjz6&st=4e6pu09r&dl=1">
+</div>
 
-                <button 
-                    class="btn btn--primary" 
-                    onclick="gospel()"
-                    aria-label="Carregar playlist gospel">
-                    🙏 Gospel Playlist
-                </button>
+<!-- BOTÃO LINK DIRETO -->
+<a class="botao-link" href="https://7k.bet.br?ref=7ead66af93da" target="_blank">
+🔼 ENTRAR AGORA
+</a>
 
-                <button 
-                    class="btn btn--secondary" 
-                    onclick="trocar('karaoke gospel harpa louvor')"
-                    aria-label="Buscar músicas gospel">
-                    🎶 Gospel
-                </button>
+<header style="text-align:center;padding:15px;">
+<h1>🎤 KARAOKÊ SHOW ONLINE</h1>
+<p>Escolha e cante 🎶</p>
+</header>
 
-                <button 
-                    class="btn btn--secondary" 
-                    onclick="trocar('karaoke sertanejo raiz e atual')"
-                    aria-label="Buscar músicas sertanejas">
-                    🤠 Sertanejo
-                </button>
+<main class="container">
 
-                <button 
-                    class="btn btn--secondary" 
-                    onclick="trocar('karaoke flashback anos 80 90')"
-                    aria-label="Buscar músicas flashback">
-                    🕺 Flashback
-                </button>
+<section class="player">
+<iframe id="video"
+src="https://www.youtube.com/embed/videoseries?list=PLhgX6O9sLdD757_SdGmHp-p5j3djuTl5t"
+allowfullscreen></iframe>
+</section>
 
-                <button 
-                    class="btn btn--secondary" 
-                    onclick="trocar('karaoke musica popular brasileira')"
-                    aria-label="Buscar MPB">
-                    🎤 Popular
-                </button>
+<section class="controls">
+<button onclick="minha()">🎤 Minha Playlist</button>
+<button onclick="gospel()">🙏 Gospel Playlist</button>
+<button onclick="trocar('karaoke gospel harpa louvor')">🎶 Gospel</button>
+<button onclick="trocar('karaoke sertanejo raiz e atual')">🤠 Sertanejo</button>
+<button onclick="trocar('karaoke flashback anos 80 90')">🕺 Flashback</button>
+<button onclick="trocar('karaoke musica popular brasileira')">🎤 Popular</button>
+<button onclick="trocar('playback banda labaredas karaoke')">🔥 Banda Labaredas</button>
+</section>
 
-                <button 
-                    class="btn btn--secondary" 
-                    onclick="trocar('playback banda labaredas karaoke')"
-                    aria-label="Buscar Banda Labaredas">
-                    🔥 Banda Labaredas
-                </button>
-            </div>
-        </section>
-    </main>
+</main>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <p class="footer__text">Seu karaokê digital online 🎵</p>
-        <p class="footer__credits">
-            Desenvolvido com ❤️ por Daniel  | 
-            <a href="https://github.com/danieljacques86-code/Karaoke-" 
-               target="_blank" 
-               rel="noopener noreferrer"
-               class="footer__link">
-            
-            </a>
-        </p>
-    </footer>
-
-    <!-- Scripts -->
-    <script src="scripts/app.js"></script>
+<script src="scripts/app.js"></script>
 </body>
 </html>
-
