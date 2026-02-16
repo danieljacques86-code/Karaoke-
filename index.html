@@ -3,131 +3,273 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🎤 Karaokê Show</title>
-
-<link rel="stylesheet" href="styles/main.css">
+<title>ULTRA IPTV</title>
 
 <style>
 body{
-    margin:0;
-    font-family:Arial, Helvetica, sans-serif;
-    background:black;
-    color:white;
-    overflow-x:hidden;
+margin:0;
+font-family:Arial;
+background:#000;
+color:#fff;
+overflow:hidden;
 }
 
-/* vídeo fundo */
-#bgvideo{
-    position:fixed;
-    right:0;
-    bottom:0;
-    min-width:100%;
-    min-height:100%;
-    z-index:-2;
-    object-fit:cover;
-    opacity:0.35;
+/* FUNDO NEON */
+#bg{
+position:fixed;
+width:100%;
+height:100%;
+z-index:-1;
+object-fit:cover;
 }
 
-/* imagem lado direito */
-.lado-direito{
-    position:fixed;
-    right:10px;
-    top:50%;
-    transform:translateY(-50%);
-    z-index:5;
-}
-.lado-direito img{
-    width:200px;
-    border-radius:12px;
-    box-shadow:0 0 20px #000;
-}
-
-/* botão link */
-.botao-link{
-    position:fixed;
-    bottom:20px;
-    right:20px;
-    background:#00c853;
-    padding:14px 18px;
-    border-radius:12px;
-    font-size:18px;
-    color:white;
-    text-decoration:none;
-    box-shadow:0 0 15px #000;
-    font-weight:bold;
-}
-.botao-link:hover{
-    background:#00e676;
+/* LOGIN */
+#login{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+background:#000000d9;
+padding:30px;
+border-radius:15px;
+box-shadow:0 0 40px #00eaff;
+text-align:center;
 }
 
-/* player */
-.container{
-    text-align:center;
-    padding:20px;
-}
-.player iframe{
-    width:90%;
-    max-width:900px;
-    height:500px;
-    border-radius:12px;
-    border:0;
-    box-shadow:0 0 20px #000;
+input{
+padding:12px;
+margin:8px;
+border:none;
+border-radius:8px;
+width:220px;
 }
 
-/* botões */
-.controls button{
-    padding:12px 18px;
-    margin:6px;
-    border-radius:10px;
-    border:none;
-    font-size:16px;
-    cursor:pointer;
+button{
+padding:10px 20px;
+border:none;
+border-radius:10px;
+background:#00eaff;
+font-weight:bold;
+}
+
+/* APP */
+#app{display:none;text-align:center;padding-top:30px;}
+
+.logo{
+font-size:45px;
+font-weight:bold;
+background:linear-gradient(90deg,#00eaff,#0066ff);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+margin-bottom:25px;
+}
+
+.menu{
+display:flex;
+justify-content:center;
+flex-wrap:wrap;
+gap:18px;
+}
+
+.card{
+width:130px;
+height:110px;
+background:#001a2a;
+border-radius:18px;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+cursor:pointer;
+box-shadow:0 0 20px #000;
+transition:.3s;
+}
+
+.card:hover{
+transform:scale(1.1);
+box-shadow:0 0 25px #00eaff;
+}
+
+/* PLAYER */
+#playerBox{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:#000;
+padding:8px;
+display:none;
+}
+
+video,audio{
+width:100%;
+height:260px;
+background:#000;
+}
+
+/* BOTÕES */
+.links{
+display:flex;
+gap:8px;
+flex-wrap:wrap;
+justify-content:center;
+margin-top:5px;
+}
+
+.links button{
+background:#000;
+color:#fff;
+border:1px solid #00eaff;
+}
+
+/* PAINEL SECRETO */
+#admin{
+display:none;
+position:fixed;
+top:10%;
+left:50%;
+transform:translateX(-50%);
+background:#000;
+padding:20px;
+border-radius:15px;
+box-shadow:0 0 30px red;
+width:90%;
+max-width:500px;
+}
+
+textarea{
+width:100%;
+height:200px;
+background:#111;
+color:#0f0;
 }
 </style>
 </head>
 
 <body>
 
-<!-- VIDEO FUNDO -->
-<video autoplay muted loop id="bgvideo">
-<source src="https://video-base-imf-sg.oss-ap-southeast-1.aliyuncs.com/public-uploads/temp/1769161468/1769161468726-home.mp4" type="video/mp4">
+<!-- FUNDO VIDEO -->
+<video autoplay muted loop id="bg">
+<source src="https://cdn.coverr.co/videos/coverr-blue-neon-tunnel-8765/1080p.mp4" type="video/mp4">
 </video>
 
-<!-- IMAGEM LADO DIREITO -->
-<div class="lado-direito">
-<img src="https://www.dropbox.com/scl/fi/gftswitawxtqxxoaay77l/aviator.jpg_play_BR.jpg?rlkey=desyqp89aktbsyuczxukatjz6&st=4e6pu09r&dl=1">
+<!-- LOGIN -->
+<div id="login">
+<h2>PAINEL IPTV</h2>
+<input id="user" placeholder="Usuário"><br>
+<input id="pass" type="password" placeholder="Senha"><br>
+<button onclick="logar()">ENTRAR</button>
 </div>
 
-<!-- BOTÃO LINK DIRETO -->
-<a class="botao-link" href="https://7k.bet.br?ref=7ead66af93da" target="_blank">
-🔼 ENTRAR AGORA
-</a>
+<!-- APP -->
+<div id="app">
+<div class="logo" id="logo">ULTRA IPTV</div>
 
-<header style="text-align:center;padding:15px;">
-<h1>🎤 KARAOKÊ SHOW ONLINE</h1>
-<p>Escolha e cante 🎶</p>
-</header>
+<div class="menu">
+<div class="card" onclick="abrir('tv')">📺<br>TV</div>
+<div class="card" onclick="abrir('filmes')">🎬<br>Filmes</div>
+<div class="card" onclick="abrir('series')">🍿<br>Séries</div>
+<div class="card" onclick="abrir('lista')">📂<br>Lista</div>
+<div class="card" onclick="abrir('radio')">📻<br>Rádio</div>
+</div>
+</div>
 
-<main class="container">
+<!-- PLAYER -->
+<div id="playerBox">
+<video id="player" controls autoplay></video>
+<audio id="radioPlayer" controls autoplay style="display:none"></audio>
+<div class="links" id="botoes"></div>
+</div>
 
-<section class="player">
-<iframe id="video"
-src="https://www.youtube.com/embed/videoseries?list=PLhgX6O9sLdD757_SdGmHp-p5j3djuTl5t"
-allowfullscreen></iframe>
-</section>
+<!-- PAINEL SECRETO -->
+<div id="admin">
+<h3>Painel secreto</h3>
+<p>Troque os links (1 por linha)</p>
+<textarea id="editor"></textarea><br><br>
+<button onclick="salvar()">SALVAR</button>
+<button onclick="fecharAdmin()">FECHAR</button>
+</div>
 
-<section class="controls">
-<button onclick="minha()">🎤 Minha Playlist</button>
-<button onclick="gospel()">🙏 Gospel Playlist</button>
-<button onclick="trocar('karaoke gospel harpa louvor')">🎶 Gospel</button>
-<button onclick="trocar('karaoke sertanejo raiz e atual')">🤠 Sertanejo</button>
-<button onclick="trocar('karaoke flashback anos 80 90')">🕺 Flashback</button>
-<button onclick="trocar('karaoke musica popular brasileira')">🎤 Popular</button>
-<button onclick="trocar('playback banda labaredas karaoke')">🔥 Banda Labaredas</button>
-</section>
+<script>
+let playlists={
+tv:["link1","link2","link3","link4","link5"],
+filmes:["link1","link2","link3","link4","link5"],
+series:["link1","link2","link3","link4","link5"],
+lista:["link1","link2","link3","link4","link5"],
+radio:["https://stream.zeno.fm/f3wvbbqmdg8uv"]
+};
 
-</main>
+function logar(){
+let u=user.value;
+let p=pass.value;
 
-<script src="scripts/app.js"></script>
+if(u=="admin" && p=="1234"){
+login.style.display="none";
+app.style.display="block";
+}else alert("Senha errada");
+}
+
+/* abrir categoria */
+function abrir(tipo){
+playerBox.style.display="block";
+let botoes=document.getElementById("botoes");
+botoes.innerHTML="";
+
+if(tipo=="radio"){
+player.style.display="none";
+radioPlayer.style.display="block";
+}else{
+radioPlayer.style.display="none";
+player.style.display="block";
+}
+
+playlists[tipo].forEach((l,i)=>{
+let b=document.createElement("button");
+b.innerText="Link "+(i+1);
+b.onclick=()=>tocar(l,tipo);
+botoes.appendChild(b);
+});
+
+tocar(playlists[tipo][0],tipo);
+}
+
+function tocar(link,tipo){
+if(tipo=="radio"){
+radioPlayer.src=link;
+radioPlayer.play();
+}else{
+player.src=link;
+player.play();
+}
+}
+
+/* painel secreto segurar logo */
+let timer;
+logo.addEventListener("touchstart",()=>{
+timer=setTimeout(()=>abrirAdmin(),4000);
+});
+logo.addEventListener("touchend",()=>clearTimeout(timer));
+
+logo.addEventListener("mousedown",()=>{
+timer=setTimeout(()=>abrirAdmin(),4000);
+});
+logo.addEventListener("mouseup",()=>clearTimeout(timer));
+
+function abrirAdmin(){
+admin.style.display="block";
+editor.value=JSON.stringify(playlists,null,2);
+}
+
+function fecharAdmin(){
+admin.style.display="none";
+}
+
+function salvar(){
+playlists=JSON.parse(editor.value);
+alert("Salvo!");
+admin.style.display="none";
+}
+</script>
+
 </body>
 </html>
