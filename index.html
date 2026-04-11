@@ -1,5 +1,9 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>VODCINE PRO</title>
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-
 <style>
     :root { --cor-principal: #e50914; --fundo: #0a0a0a; --card: #1a1a1a; }
     body { background-color: var(--fundo); color: white; font-family: Arial, sans-serif; margin: 0; }
@@ -40,6 +44,8 @@
     }
     @keyframes pulse { 0% { scale: 1; } 50% { scale: 1.1; } 100% { scale: 1; } }
 </style>
+</head>
+<body>
 
 <header>
     <h1 style="margin:0 0 10px 0;">VODCINE PRO</h1>
@@ -57,7 +63,7 @@
     </div>
     
     <div id="overlay-img">
-        <img src="https://dl.dropboxusercontent.com/scl/fi/7pvxcro7rfyep7y3z9awg/5154646941106285827_120.jpg?rlkey=o1w4hyoc60zqqcjsnqb8xvv3l&dl=1" alt="Aguarde...">
+        <img src="https://via.placeholder.com/600x400?text=Aguarde..." alt="Aguarde...">
     </div>
 
     <a href="https://testeagora.tv/logtvseries" target="_blank" id="btn-teste">CLIQUE AQUI PARA FAZER TESTE</a>
@@ -67,7 +73,7 @@
 
 <script>
     const URL_LISTA = "https://dl.dropboxusercontent.com/scl/fi/1h444ydk3srdoccm3pue3/VODCINE.txt?rlkey=xpz9bxd2z095ajy1jva4oe2lz";
-    let hlsEngine = new Hls();
+    let hlsEngine = null;
     let timerTeste;
 
     async function carregarDados() {
@@ -124,66 +130,46 @@
         document.getElementById('nome-video').innerText = nome;
         let linkFinal = url.replace('www.dropbox.com', 'dl.dropboxusercontent.com');
         
-        // Reset de estados
         playerDiv.style.display = 'flex';
         overlay.style.display = 'flex';
         btnTeste.style.display = 'none';
         clearTimeout(timerTeste);
 
-        // 1. Mostrar imagem por 5 segundos
         setTimeout(() => {
             overlay.style.display = 'none';
-            
-            // Iniciar Vídeo
-            if (linkFinal.includes('.m3u8') || linkFinal.includes('.ts')) {
+
+            if (hlsEngine) {
+                hlsEngine.destroy();
+            }
+            hlsEngine = new Hls();
+
+            if (linkFinal.includes('.m3u8')) {
                 if (Hls.isSupported()) {
                     hlsEngine.loadSource(linkFinal);
                     hlsEngine.attachMedia(video);
                     hlsEngine.on(Hls.Events.MANIFEST_PARSED, () => video.play());
                 } else {
-                    video.src = linkFinal; video.play();
+                    video.src = linkFinal;
+                    video.play();
                 }
             } else {
-                hlsEngine.detachMedia();
-                video.src = linkFinal; video.play();
+                video.src = linkFinal;
+                video.play();
             }
 
-            // 2. Agendar botão de teste para daqui a 5 minutos (300000 ms)
             timerTeste = setTimeout(() => {
                 btnTeste.style.display = 'block';
             }, 300000);
-
-        }, 5000); // 5000 ms = 5 segundos
+        }, 5000);
     }
 
     function fechar() {
         const v = document.getElementById('video-obj');
         v.pause();
-        hlsEngine.detachMedia();
         v.src = "";
+        if (hlsEngine) {
+            hlsEngine.destroy();
+            hlsEngine = null;
+        }
         document.getElementById('janela-player').style.display = 'none';
         document.getElementById('btn-teste').style.display = 'none';
-        clearTimeout(timerTeste);
-    }
-
-    function filtrar() {
-        let termo = document.getElementById('busca').value.toLowerCase();
-        document.querySelectorAll('.card').forEach(c => {
-            c.style.display = c.innerText.toLowerCase().includes(termo) ? "" : "none";
-        });
-    }
-
-    window.onload = carregarDados;
-</script>
-
-
-
-
-  <!-- PLAYER -->
-  <div class="player">
-    <iframe 
-      src="https://www.youtube.com/embed/Clc1OsJosqc?autoplay=1&mute=1"
-      allow="autoplay"
-      allowfullscreen>
-    </iframe>
-  </div>
