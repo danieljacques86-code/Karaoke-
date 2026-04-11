@@ -1,275 +1,189 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ULTRA IPTV</title>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
 <style>
-body{
-margin:0;
-font-family:Arial;
-background:#000;
-color:#fff;
-overflow:hidden;
-}
+    :root { --cor-principal: #e50914; --fundo: #0a0a0a; --card: #1a1a1a; }
+    body { background-color: var(--fundo); color: white; font-family: Arial, sans-serif; margin: 0; }
+    
+    header { padding: 20px; text-align: center; background: #000; border-bottom: 2px solid var(--cor-principal); }
+    #busca { width: 80%; max-width: 400px; padding: 10px; border-radius: 20px; border: none; outline: none; }
 
-/* FUNDO NEON */
-#bg{
-position:fixed;
-width:100%;
-height:100%;
-z-index:-1;
-object-fit:cover;
-}
+    .container { padding: 20px; }
+    .titulo-categoria { font-size: 22px; margin: 20px 0 10px; color: var(--cor-principal); font-weight: bold; }
+    
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; }
+    .card { background: var(--card); border-radius: 8px; overflow: hidden; cursor: pointer; transition: 0.3s; border: 1px solid #333; }
+    .card:hover { transform: scale(1.05); border-color: var(--cor-principal); }
+    .card img { width: 100%; aspect-ratio: 2/3; object-fit: cover; }
+    .card-txt { padding: 8px; font-size: 13px; text-align: center; font-weight: bold; }
 
-/* LOGIN */
-#login{
-position:absolute;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-background:#000000d9;
-padding:30px;
-border-radius:15px;
-box-shadow:0 0 40px #00eaff;
-text-align:center;
-}
+    /* JANELA DO PLAYER */
+    #janela-player { 
+        display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+        background: #000; z-index: 9999; flex-direction: column; 
+    }
+    .topo-player { padding: 15px; display: flex; justify-content: space-between; align-items: center; background: #111; }
+    #video-obj { flex-grow: 1; width: 100%; outline: none; }
+    .btn-fechar { background: var(--cor-principal); color: white; border: none; padding: 10px 20px; cursor: pointer; font-weight: bold; border-radius: 5px; }
 
-input{
-padding:12px;
-margin:8px;
-border:none;
-border-radius:8px;
-width:220px;
-}
+    /* OVERLAYS (IMAGEM E BOTÃO) */
+    #overlay-img {
+        display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        background: black; z-index: 10001; justify-content: center; align-items: center;
+    }
+    #overlay-img img { max-width: 100%; max-height: 100%; }
 
-button{
-padding:10px 20px;
-border:none;
-border-radius:10px;
-background:#00eaff;
-font-weight:bold;
-}
-
-/* APP */
-#app{display:none;text-align:center;padding-top:30px;}
-
-.logo{
-font-size:45px;
-font-weight:bold;
-background:linear-gradient(90deg,#00eaff,#0066ff);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-margin-bottom:25px;
-}
-
-.menu{
-display:flex;
-justify-content:center;
-flex-wrap:wrap;
-gap:18px;
-}
-
-.card{
-width:130px;
-height:110px;
-background:#001a2a;
-border-radius:18px;
-display:flex;
-align-items:center;
-justify-content:center;
-flex-direction:column;
-cursor:pointer;
-box-shadow:0 0 20px #000;
-transition:.3s;
-}
-
-.card:hover{
-transform:scale(1.1);
-box-shadow:0 0 25px #00eaff;
-}
-
-/* PLAYER */
-#playerBox{
-position:fixed;
-bottom:0;
-left:0;
-width:100%;
-background:#000;
-padding:8px;
-display:none;
-}
-
-video,audio{
-width:100%;
-height:260px;
-background:#000;
-}
-
-/* BOTÕES */
-.links{
-display:flex;
-gap:8px;
-flex-wrap:wrap;
-justify-content:center;
-margin-top:5px;
-}
-
-.links button{
-background:#000;
-color:#fff;
-border:1px solid #00eaff;
-}
-
-/* PAINEL SECRETO */
-#admin{
-display:none;
-position:fixed;
-top:10%;
-left:50%;
-transform:translateX(-50%);
-background:#000;
-padding:20px;
-border-radius:15px;
-box-shadow:0 0 30px red;
-width:90%;
-max-width:500px;
-}
-
-textarea{
-width:100%;
-height:200px;
-background:#111;
-color:#0f0;
-}
+    #btn-teste {
+        display: none; position: absolute; bottom: 100px; left: 50%; transform: translateX(-50%);
+        background: var(--cor-principal); color: white; padding: 15px 30px; 
+        text-decoration: none; font-weight: bold; border-radius: 50px; z-index: 10002;
+        box-shadow: 0 0 20px rgba(229, 9, 20, 0.5); animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0% { scale: 1; } 50% { scale: 1.1; } 100% { scale: 1; } }
 </style>
-</head>
 
-<body>
+<header>
+    <h1 style="margin:0 0 10px 0;">VODCINE PRO</h1>
+    <input type="text" id="busca" placeholder="Pesquisar..." onkeyup="filtrar()">
+</header>
 
-<!-- FUNDO VIDEO -->
-<video autoplay muted loop id="bg">
-<source src="https://cdn.coverr.co/videos/coverr-blue-neon-tunnel-8765/1080p.mp4" type="video/mp4">
-</video>
-
-<!-- LOGIN -->
-<div id="login">
-<h2>PAINEL IPTV</h2>
-<input id="user" placeholder="Usuário"><br>
-<input id="pass" type="password" placeholder="Senha"><br>
-<button onclick="logar()">ENTRAR</button>
+<div class="container" id="vitrine">
+    <p style="text-align:center;">A carregar lista do Dropbox...</p>
 </div>
 
-<!-- APP -->
-<div id="app">
-<div class="logo" id="logo">ULTRA IPTV</div>
+<div id="janela-player">
+    <div class="topo-player">
+        <span id="nome-video">A carregar...</span>
+        <button class="btn-fechar" onclick="fechar()">VOLTAR</button>
+    </div>
+    
+    <div id="overlay-img">
+        <img src="https://dl.dropboxusercontent.com/scl/fi/7pvxcro7rfyep7y3z9awg/5154646941106285827_120.jpg?rlkey=o1w4hyoc60zqqcjsnqb8xvv3l&dl=1" alt="Aguarde...">
+    </div>
 
-<div class="menu">
-<div class="card" onclick="abrir('tv')">📺<br>TV</div>
-<div class="card" onclick="abrir('filmes')">🎬<br>Filmes</div>
-<div class="card" onclick="abrir('series')">🍿<br>Séries</div>
-<div class="card" onclick="abrir('lista')">📂<br>Lista</div>
-<div class="card" onclick="abrir('radio')">📻<br>Rádio</div>
-</div>
-</div>
+    <a href="https://testeagora.tv/logtvseries" target="_blank" id="btn-teste">CLIQUE AQUI PARA FAZER TESTE</a>
 
-<!-- PLAYER -->
-<div id="playerBox">
-<video id="player" controls autoplay></video>
-<audio id="radioPlayer" controls autoplay style="display:none"></audio>
-<div class="links" id="botoes"></div>
-</div>
-
-<!-- PAINEL SECRETO -->
-<div id="admin">
-<h3>Painel secreto</h3>
-<p>Troque os links (1 por linha)</p>
-<textarea id="editor"></textarea><br><br>
-<button onclick="salvar()">SALVAR</button>
-<button onclick="fecharAdmin()">FECHAR</button>
+    <video id="video-obj" controls playsinline referrerpolicy="no-referrer"></video>
 </div>
 
 <script>
-let playlists={
-tv:["link1","link2","link3","link4","link5"],
-filmes:["http://hubby.run:80/movie/playcine-vods/gKQJjXulgb/644556.mp4","link2","link3","link4","link5"],
-series:["link1","link2","link3","link4","link5"],
-lista:["link1","link2","link3","link4","link5"],
-radio:["https://stream.zeno.fm/f3wvbbqmdg8uv"]
-};
+    const URL_LISTA = "https://dl.dropboxusercontent.com/scl/fi/1h444ydk3srdoccm3pue3/VODCINE.txt?rlkey=xpz9bxd2z095ajy1jva4oe2lz";
+    let hlsEngine = new Hls();
+    let timerTeste;
 
-function logar(){
-let u=user.value;
-let p=pass.value;
+    async function carregarDados() {
+        try {
+            const resposta = await fetch(URL_LISTA);
+            const texto = await resposta.text();
+            organizar(texto);
+        } catch (erro) {
+            document.getElementById('vitrine').innerHTML = "Erro ao carregar ficheiro M3U.";
+        }
+    }
 
-if(u=="admin" && p=="1234"){
-login.style.display="none";
-app.style.display="block";
-}else alert("Senha errada");
-}
+    function organizar(conteudo) {
+        const linhas = conteudo.split('\n');
+        const categorias = {};
+        for (let i = 0; i < linhas.length; i++) {
+            if (linhas[i].includes('#EXTINF')) {
+                const url = linhas[i+1] ? linhas[i+1].trim() : "";
+                if (url.startsWith('http')) {
+                    const nome = linhas[i].split(',')[1] || "Sem Nome";
+                    const capa = (linhas[i].match(/tvg-logo="([^"]+)"/) || [])[1] || "";
+                    const cat = (linhas[i].match(/group-title="([^"]+)"/) || [])[1] || "Geral";
+                    if (!categorias[cat]) categorias[cat] = [];
+                    categorias[cat].push({ nome, capa, url });
+                }
+            }
+        }
+        exibir(categorias);
+    }
 
-/* abrir categoria */
-function abrir(tipo){
-playerBox.style.display="block";
-let botoes=document.getElementById("botoes");
-botoes.innerHTML="";
+    function exibir(grupos) {
+        const vitrine = document.getElementById('vitrine');
+        vitrine.innerHTML = "";
+        for (const [titulo, itens] of Object.entries(grupos)) {
+            const seccao = document.createElement('div');
+            seccao.innerHTML = `<div class="titulo-categoria">${titulo}</div><div class="grid"></div>`;
+            itens.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.onclick = () => abrir(item.url, item.nome);
+                card.innerHTML = `<img src="${item.capa}" onerror="this.src='https://via.placeholder.com/200x300?text=Sem+Capa'"><div class="card-txt">${item.nome}</div>`;
+                seccao.querySelector('.grid').appendChild(card);
+            });
+            vitrine.appendChild(seccao);
+        }
+    }
 
-if(tipo=="radio"){
-player.style.display="none";
-radioPlayer.style.display="block";
-}else{
-radioPlayer.style.display="none";
-player.style.display="block";
-}
+    function abrir(url, nome) {
+        const playerDiv = document.getElementById('janela-player');
+        const video = document.getElementById('video-obj');
+        const overlay = document.getElementById('overlay-img');
+        const btnTeste = document.getElementById('btn-teste');
+        
+        document.getElementById('nome-video').innerText = nome;
+        let linkFinal = url.replace('www.dropbox.com', 'dl.dropboxusercontent.com');
+        
+        // Reset de estados
+        playerDiv.style.display = 'flex';
+        overlay.style.display = 'flex';
+        btnTeste.style.display = 'none';
+        clearTimeout(timerTeste);
 
-playlists[tipo].forEach((l,i)=>{
-let b=document.createElement("button");
-b.innerText="Link "+(i+1);
-b.onclick=()=>tocar(l,tipo);
-botoes.appendChild(b);
-});
+        // 1. Mostrar imagem por 5 segundos
+        setTimeout(() => {
+            overlay.style.display = 'none';
+            
+            // Iniciar Vídeo
+            if (linkFinal.includes('.m3u8') || linkFinal.includes('.ts')) {
+                if (Hls.isSupported()) {
+                    hlsEngine.loadSource(linkFinal);
+                    hlsEngine.attachMedia(video);
+                    hlsEngine.on(Hls.Events.MANIFEST_PARSED, () => video.play());
+                } else {
+                    video.src = linkFinal; video.play();
+                }
+            } else {
+                hlsEngine.detachMedia();
+                video.src = linkFinal; video.play();
+            }
 
-tocar(playlists[tipo][0],tipo);
-}
+            // 2. Agendar botão de teste para daqui a 5 minutos (300000 ms)
+            timerTeste = setTimeout(() => {
+                btnTeste.style.display = 'block';
+            }, 300000);
 
-function tocar(link,tipo){
-if(tipo=="radio"){
-radioPlayer.src=link;
-radioPlayer.play();
-}else{
-player.src=link;
-player.play();
-}
-}
+        }, 5000); // 5000 ms = 5 segundos
+    }
 
-/* painel secreto segurar logo */
-let timer;
-logo.addEventListener("touchstart",()=>{
-timer=setTimeout(()=>abrirAdmin(),4000);
-});
-logo.addEventListener("touchend",()=>clearTimeout(timer));
+    function fechar() {
+        const v = document.getElementById('video-obj');
+        v.pause();
+        hlsEngine.detachMedia();
+        v.src = "";
+        document.getElementById('janela-player').style.display = 'none';
+        document.getElementById('btn-teste').style.display = 'none';
+        clearTimeout(timerTeste);
+    }
 
-logo.addEventListener("mousedown",()=>{
-timer=setTimeout(()=>abrirAdmin(),4000);
-});
-logo.addEventListener("mouseup",()=>clearTimeout(timer));
+    function filtrar() {
+        let termo = document.getElementById('busca').value.toLowerCase();
+        document.querySelectorAll('.card').forEach(c => {
+            c.style.display = c.innerText.toLowerCase().includes(termo) ? "" : "none";
+        });
+    }
 
-function abrirAdmin(){
-admin.style.display="block";
-editor.value=JSON.stringify(playlists,null,2);
-}
-
-function fecharAdmin(){
-admin.style.display="none";
-}
-
-function salvar(){
-playlists=JSON.parse(editor.value);
-alert("Salvo!");
-admin.style.display="none";
-}
+    window.onload = carregarDados;
 </script>
 
-</body>
-</html>
+
+
+
+  <!-- PLAYER -->
+  <div class="player">
+    <iframe 
+      src="https://www.youtube.com/embed/Clc1OsJosqc?autoplay=1&mute=1"
+      allow="autoplay"
+      allowfullscreen>
+    </iframe>
+  </div>
