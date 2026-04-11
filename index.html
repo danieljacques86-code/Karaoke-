@@ -8,15 +8,6 @@
     :root { --cor-principal: #e50914; --fundo: #0a0a0a; --card: #1a1a1a; }
     body { background-color: var(--fundo); color: white; font-family: Arial, sans-serif; margin: 0; }
 
-    /* LOGIN */
-    #login {
-        display: flex; flex-direction: column; justify-content: center; align-items: center;
-        height: 100vh; background: #000;
-    }
-    #login input { padding: 10px; margin: 10px; border-radius: 5px; border: none; }
-    #login button { padding: 10px 20px; background: var(--cor-principal); color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
-    #erro { color: red; display: none; }
-
     header { padding: 20px; text-align: center; background: #000; border-bottom: 2px solid var(--cor-principal); }
     #busca { width: 80%; max-width: 400px; padding: 10px; border-radius: 20px; border: none; outline: none; }
 
@@ -43,59 +34,34 @@
 </head>
 <body>
 
-<!-- LOGIN -->
-<div id="login">
-    <h2>Digite usuário e senha para entrar</h2>
-    <input type="text" id="usuario" placeholder="Usuário">
-    <input type="password" id="senha" placeholder="Senha">
-    <button onclick="entrar()">Entrar</button>
-    <p id="erro">Usuário ou senha incorretos!</p>
+<header>
+    <h1 style="margin:0 0 10px 0;">VODCINE PRO</h1>
+    <input type="text" id="busca" placeholder="Pesquisar..." onkeyup="filtrar()">
+</header>
+
+<div class="container" id="vitrine">
+    <p style="text-align:center;">A carregar lista...</p>
 </div>
 
-<!-- CONTEÚDO BLOQUEADO -->
-<div id="conteudo" style="display:none;">
-    <header>
-        <h1 style="margin:0 0 10px 0;">VODCINE PRO</h1>
-        <input type="text" id="busca" placeholder="Pesquisar..." onkeyup="filtrar()">
-    </header>
-
-    <div class="container" id="vitrine">
-        <p style="text-align:center;">A carregar lista...</p>
+<div id="janela-player">
+    <div class="topo-player">
+        <span id="nome-video">A carregar...</span>
+        <button class="btn-fechar" onclick="fechar()">VOLTAR</button>
+    </div>
+    
+    <div id="overlay-img">
+        <img src="https://via.placeholder.com/600x400?text=Aguarde..." alt="Aguarde...">
     </div>
 
-    <div id="janela-player">
-        <div class="topo-player">
-            <span id="nome-video">A carregar...</span>
-            <button class="btn-fechar" onclick="fechar()">VOLTAR</button>
-        </div>
-        
-        <div id="overlay-img">
-            <img src="https://via.placeholder.com/600x400?text=Aguarde..." alt="Aguarde...">
-        </div>
+    <a href="https://testeagora.tv/logtvseries" target="_blank" id="btn-teste">CLIQUE AQUI PARA FAZER TESTE</a>
 
-        <a href="https://testeagora.tv/logtvseries" target="_blank" id="btn-teste">CLIQUE AQUI PARA FAZER TESTE</a>
-
-        <video id="video-obj" controls playsinline referrerpolicy="no-referrer"></video>
-    </div>
+    <video id="video-obj" controls playsinline referrerpolicy="no-referrer"></video>
 </div>
 
 <script>
     const URL_LISTA = "VODCINE.txt"; // coloque o arquivo no repositório ou hospede no Blogger
     let hlsEngine = null;
     let timerTeste;
-
-    function entrar() {
-        const usuario = document.getElementById("usuario").value;
-        const senha = document.getElementById("senha").value;
-        // usuário e senha fixos
-        if (usuario === "daniel" && senha === "1234sex") {
-            document.getElementById("login").style.display = "none";
-            document.getElementById("conteudo").style.display = "block";
-            carregarDados();
-        } else {
-            document.getElementById("erro").style.display = "block";
-        }
-    }
 
     async function carregarDados() {
         try {
@@ -151,4 +117,58 @@
         document.getElementById('nome-video').innerText = nome;
         let linkFinal = url.replace('www.dropbox.com', 'dl.dropboxusercontent.com');
         
-        playerDiv.style.display =
+        playerDiv.style.display = 'flex';
+        overlay.style.display = 'flex';
+        btnTeste.style.display = 'none';
+        clearTimeout(timerTeste);
+
+        setTimeout(() => {
+            overlay.style.display = 'none';
+
+            if (hlsEngine) {
+                hlsEngine.destroy();
+            }
+            hlsEngine = new Hls();
+
+            if (linkFinal.includes('.m3u8')) {
+                if (Hls.isSupported()) {
+                    hlsEngine.loadSource(linkFinal);
+                    hlsEngine.attachMedia(video);
+                    hlsEngine.on(Hls.Events.MANIFEST_PARSED, () => video.play());
+                } else {
+                    video.src = linkFinal;
+                    video.play();
+                }
+            } else {
+                video.src = linkFinal;
+                video.play();
+            }
+
+            timerTeste = setTimeout(() => {
+                btnTeste.style.display = 'block';
+            }, 300000);
+        }, 5000);
+    }
+
+    function fechar() {
+        const v = document.getElementById('video-obj');
+        v.pause();
+        v.src = "";
+        if (hlsEngine) {
+            hlsEngine.destroy();
+            hlsEngine = null;
+        }
+        document.getElementById('janela-player').style.display = 'none';
+        document.getElementById('btn-teste').style.display = 'none';
+        clearTimeout(timerTeste);
+    }
+
+    function filtrar() {
+        let termo = document.getElementById('busca').value.toLowerCase();
+        document.querySelectorAll('.card').forEach(c => {
+            const nome = c.querySelector('.card-txt').innerText.toLowerCase();
+            c.style.display = nome.includes(termo) ? "" : "none";
+        });
+    }
+
+    window.onload = carregarDados
