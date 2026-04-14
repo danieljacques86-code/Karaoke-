@@ -1,174 +1,265 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>VODCINE PRO</title>
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Media Center</title>
+
 <style>
-    :root { --cor-principal: #e50914; --fundo: #0a0a0a; --card: #1a1a1a; }
-    body { background-color: var(--fundo); color: white; font-family: Arial, sans-serif; margin: 0; }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-    header { padding: 20px; text-align: center; background: #000; border-bottom: 2px solid var(--cor-principal); }
-    #busca { width: 80%; max-width: 400px; padding: 10px; border-radius: 20px; border: none; outline: none; }
+html, body {
+    width: 100%;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+}
 
-    .container { padding: 20px; }
-    .titulo-categoria { font-size: 22px; margin: 20px 0 10px; color: var(--cor-principal); font-weight: bold; }
-    
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; }
-    .card { background: var(--card); border-radius: 8px; overflow: hidden; cursor: pointer; transition: 0.3s; border: 1px solid #333; }
-    .card:hover { transform: scale(1.05); border-color: var(--cor-principal); }
-    .card img { width: 100%; aspect-ratio: 2/3; object-fit: cover; }
-    .card-txt { padding: 8px; font-size: 13px; text-align: center; font-weight: bold; }
+/* FUNDO */
+body {
+    background: url("https://wsbit.net/core/img/fundo.png") no-repeat center center fixed;
+    background-size: cover;
+}
 
-    #janela-player { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; flex-direction: column; }
-    .topo-player { padding: 15px; display: flex; justify-content: space-between; align-items: center; background: #111; }
-    #video-obj { flex-grow: 1; width: 100%; outline: none; }
-    .btn-fechar { background: var(--cor-principal); color: white; border: none; padding: 10px 20px; cursor: pointer; font-weight: bold; border-radius: 5px; }
+/* OVERLAY */
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.8));
+    z-index: 1;
+}
 
-    #overlay-img { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: black; z-index: 10001; justify-content: center; align-items: center; }
-    #overlay-img img { max-width: 100%; max-height: 100%; }
+/* CONTAINER */
+.container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
-    #btn-teste { display: none; position: absolute; bottom: 100px; left: 50%; transform: translateX(-50%); background: var(--cor-principal); color: white; padding: 15px 30px; text-decoration: none; font-weight: bold; border-radius: 50px; z-index: 10002; box-shadow: 0 0 20px rgba(229, 9, 20, 0.5); animation: pulse 2s infinite; }
-    @keyframes pulse { 0% { scale: 1; } 50% { scale: 1.1; } 100% { scale: 1; } }
+/* MENU */
+.menu {
+    display: flex;
+    gap: clamp(30px, 3vw, 80px);
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* ITENS PRINCIPAIS */
+.item {
+    width: clamp(160px, 22vw, 260px);
+    height: clamp(160px, 22vw, 260px);
+    background: rgba(0,0,0,0.45);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.item:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 30px rgba(0,120,255,0.8);
+}
+
+.item img {
+    width: clamp(90px, 14vw, 190px);
+}
+
+/* RODAPÉ */
+.footer {
+    position: absolute;
+    bottom: 40px;
+    display: flex;
+    gap: clamp(40px, 6vw, 60px);
+}
+
+.footer .small {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer img {
+    width: clamp(45px, 6vw, 70px);
+}
+
+.footer span {
+    margin-top: 6px;
+    color: white;
+    font-size: clamp(11px, 1.8vw, 14px);
+}
+
+a {
+    text-decoration: none;
+}
+
+/* 📱 CELULAR PEQUENO (RETRATO) */
+@media (max-width: 480px) {
+    .container {
+    justify-content: space-between;
+    padding-top: 70px;  /* Altura das imagens */
+    padding-bottom: 65px;
+    }
+
+    .menu {
+        gap: 20px;  /* Distancia entre as imagens */
+    }
+
+    .item img {
+        width: 120px; /* Tamanho das imagens */
+    }
+
+    .footer img {
+        width: 60px;  /* Tamanho das imagens Rodapé */
+    }
+
+    .footer {
+        bottom: 40px;  /* Altura das imagens Rodapé */
+        gap: 40px;  /* Distancia entre as imagens */
+    }
+}
+
+/* 📱 CELULAR PEQUENO DEITADO (ALTURA REALMENTE CURTA) */
+@media (max-height: 500px) and (orientation: landscape) {
+
+    .container {
+        justify-content: space-between;
+        padding-top: 60px;  /* Altura das imagens */
+        padding-bottom: 65px;
+    }
+
+    .menu {
+        gap: 40px; /* Distancia entre as imagens */
+    }
+
+    .item {
+        width: 120px; /* circulo das imagens */
+        height: 120px;
+    }
+
+    .item img {
+        width: 120px; /* Tamanho das imagens */
+    }
+
+    .footer {
+        bottom: 28px; /* Altura das imagens Rodapé */
+        gap: 40px; /* Distancia entre as imagens */
+    }
+
+    .footer img {
+        width: 58px; /* Tamanho das imagens Rodapé */
+    }
+
+    .footer span {
+        font-size: 11px; /* Tamanho das Letras Rodapé */
+    }
+}
+
+/* 📺 SMART TV / TV BOX GRANDES */
+@media (min-width: 1280px) {
+    .container {
+        justify-content: flex-start; /* topo */
+        align-items: center;         /* centro horizontal */
+    }
+
+    .menu {
+        width: 100%;
+        display: flex;
+        justify-content: center;     /* centro real */
+        margin-top: 22vh;
+    }
+
+    .menu .item {
+        margin: 0 2vw;  /* Distancia entre as imagens */
+    }
+
+    .footer .small {
+        margin: 0 5vw; /* Distancia entre as imagens Rodapé */
+    }
+
+    .item {
+        width: 280px; /* circulo das imagens */
+        height: 280px;
+    }
+
+    .item img {
+        width: 220px; /* Tamanho das imagens */
+    }
+
+    .footer img {
+        width: 80px; /* Tamanho das imagens Rodapé */
+    }
+}
 </style>
 </head>
-<body>
 
-<header>
-    <h1 style="margin:0 0 10px 0;">VODCINE PRO</h1>
-    <input type="text" id="busca" placeholder="Pesquisar..." onkeyup="filtrar()">
-</header>
+<body onclick="openFullscreen()">
 
-<div class="container" id="vitrine">
-    <p style="text-align:center;">A carregar lista...</p>
-</div>
+<div class="overlay"></div>
 
-<div id="janela-player">
-    <div class="topo-player">
-        <span id="nome-video">A carregar...</span>
-        <button class="btn-fechar" onclick="fechar()">VOLTAR</button>
+<div class="container">
+
+    <div class="menu">
+        <a href="https://wsbit.net/core/fut/index.html">
+            <div class="item">
+                <img src="https://wsbit.net/core/img/cat_tv.png">
+                <div class="label"></div>
+            </div>
+        </a>
+
+        <a href="https://wsbit.net/core/filmes/index.html">
+            <div class="item">
+                <img src="https://wsbit.net/core/img/cat_vod.png">
+                <div class="label"></div>
+            </div>
+        </a>
+
+        <a href="https://wsbit.net/core/series/index.html">
+            <div class="item">
+                <img src="https://wsbit.net/core/img/cat_series.png">
+                <div class="label"></div>
+            </div>
+        </a>
     </div>
-    
-    <div id="overlay-img">
-        <img src="https://via.placeholder.com/600x400?text=Aguarde..." alt="Aguarde...">
+
+    <div class="footer">
+        <a href="https://wsbit.net/core/animes/index.html">
+            <div class="small">
+                <img src="https://wsbit.net/core/img/cat_anime.png">
+                <span>ANIMES</span>
+            </div>
+        </a>
+
+        <a href="https://wsbit.net/radio/index.html">
+            <div class="small">
+                <img src="https://wsbit.net/core/img/cat_radio.png">
+                <span>RÁDIO WEB</span>
+            </div>
+        </a>
     </div>
 
-    <a href="https://testeagora.tv/logtvseries" target="_blank" id="btn-teste">CLIQUE AQUI PARA FAZER TESTE</a>
-
-    <video id="video-obj" controls playsinline referrerpolicy="no-referrer"></video>
 </div>
 
 <script>
-    const URL_LISTA = "VODCINE.txt"; // coloque o arquivo no repositório ou hospede no Blogger
-    let hlsEngine = null;
-    let timerTeste;
-
-    async function carregarDados() {
-        try {
-            const resposta = await fetch(URL_LISTA);
-            const texto = await resposta.text();
-            organizar(texto);
-        } catch (erro) {
-            document.getElementById('vitrine').innerHTML = "Erro ao carregar ficheiro M3U.";
-        }
+function openFullscreen() {
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(()=>{});
     }
+}
+</script>
 
-    function organizar(conteudo) {
-        const linhas = conteudo.split('\n');
-        const categorias = {};
-        for (let i = 0; i < linhas.length; i++) {
-            if (linhas[i].includes('#EXTINF')) {
-                const url = linhas[i+1] ? linhas[i+1].trim() : "";
-                if (url.startsWith('http')) {
-                    const nome = linhas[i].split(',')[1] || "Sem Nome";
-                    const capa = (linhas[i].match(/tvg-logo="([^"]+)"/) || [])[1] || "";
-                    const cat = (linhas[i].match(/group-title="([^"]+)"/) || [])[1] || "Geral";
-                    if (!categorias[cat]) categorias[cat] = [];
-                    categorias[cat].push({ nome, capa, url });
-                }
-            }
-        }
-        exibir(categorias);
-    }
+</body>
+</html>
 
-    function exibir(grupos) {
-        const vitrine = document.getElementById('vitrine');
-        vitrine.innerHTML = "";
-        for (const [titulo, itens] of Object.entries(grupos)) {
-            const seccao = document.createElement('div');
-            seccao.innerHTML = `<div class="titulo-categoria">${titulo}</div><div class="grid"></div>`;
-            itens.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.onclick = () => abrir(item.url, item.nome);
-                card.innerHTML = `<img src="${item.capa}" onerror="this.src='https://via.placeholder.com/200x300?text=Sem+Capa'"><div class="card-txt">${item.nome}</div>`;
-                seccao.querySelector('.grid').appendChild(card);
-            });
-            vitrine.appendChild(seccao);
-        }
-    }
-
-    function abrir(url, nome) {
-        const playerDiv = document.getElementById('janela-player');
-        const video = document.getElementById('video-obj');
-        const overlay = document.getElementById('overlay-img');
-        const btnTeste = document.getElementById('btn-teste');
-        
-        document.getElementById('nome-video').innerText = nome;
-        let linkFinal = url.replace('www.dropbox.com', 'dl.dropboxusercontent.com');
-        
-        playerDiv.style.display = 'flex';
-        overlay.style.display = 'flex';
-        btnTeste.style.display = 'none';
-        clearTimeout(timerTeste);
-
-        setTimeout(() => {
-            overlay.style.display = 'none';
-
-            if (hlsEngine) {
-                hlsEngine.destroy();
-            }
-            hlsEngine = new Hls();
-
-            if (linkFinal.includes('.m3u8')) {
-                if (Hls.isSupported()) {
-                    hlsEngine.loadSource(linkFinal);
-                    hlsEngine.attachMedia(video);
-                    hlsEngine.on(Hls.Events.MANIFEST_PARSED, () => video.play());
-                } else {
-                    video.src = linkFinal;
-                    video.play();
-                }
-            } else {
-                video.src = linkFinal;
-                video.play();
-            }
-
-            timerTeste = setTimeout(() => {
-                btnTeste.style.display = 'block';
-            }, 300000);
-        }, 5000);
-    }
-
-    function fechar() {
-        const v = document.getElementById('video-obj');
-        v.pause();
-        v.src = "";
-        if (hlsEngine) {
-            hlsEngine.destroy();
-            hlsEngine = null;
-        }
-        document.getElementById('janela-player').style.display = 'none';
-        document.getElementById('btn-teste').style.display = 'none';
-        clearTimeout(timerTeste);
-    }
-
-    function filtrar() {
-        let termo = document.getElementById('busca').value.toLowerCase();
-        document.querySelectorAll('.card').forEach(c => {
-            const nome = c.querySelector('.card-txt').innerText.toLowerCase();
-            c.style.display = nome.includes(termo) ? "" : "none";
-        });
-    }
-
-    window.onload = carregarDados
