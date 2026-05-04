@@ -1,1 +1,260 @@
 
+#EXTM3U
+#EXTINF:-1 tvg-logo="http:" group-title="",  Radio Disney PerÃº - FM 91.1 - Lima
+http://es.streema.com/radios/play/Radio_Disney_Peru?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="",  TELESUR  
+https://cdnesmain.telesur.ultrabase.net/mbliveMain/480p/playlist.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", #1
+http://live.detodotvplay.com/live/Cano52/8T4E3p5MnPq5/50.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", #2
+http://live.detodotvplay.com/live/Cano52/8T4E3p5MnPq5/161.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", #3
+http://live.detodotvplay.com/live/Cano52/8T4E3p5MnPq5/222.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", #4
+http://tv.proyectox.vip:8080/live/AlainG2370/3af106c81340/9673.ts?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", #5
+http://tv.proyectox.vip:8080/live/AlainG2370/3af106c81340/9694.ts?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", #6
+http://tv.proyectox.vip:8080/live/AlainG2370/3af106c81340/9776.ts?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", + Cine
+https://tv.streaming-chile.com:19360/8142/8142.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", + SPORS HD
+http://vipliar.top:8080/live/VIP01113172673146299/424a3feb8a20/371.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", 040 Mi TV TelevisiÃ³n ClÃ¡sica
+https://mitv.getstreamhosting.com:30443/live/livestream123/playlist.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", 101tv sevilla
+https://www.101tvsevilla.es/lists/tv.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", 1208 Viwix TV Music
+https://cloudvideo.servers10.com:8081/8210/tracks-v1a1/mono.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", 1226 Canal Antigua
+https://streannlivefeedlatino.cachefly.net/feedlatino1/feedlatino1/chunks.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", 1229 MACARENA FM
+https://5ff3d9babae13.streamlock.net/8042/8042/chunklist_w170407611.m3u8?WebM3UCL&PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", 13 COCINA
+https://redirector.dps.live/hls/13cocina/playlist.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", 13 CULTURA
+https://redirector.dps.live/hls/13cultura/playlist.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", 13 FESTIVAL
+https://redirector.dps.live/hls/13festival/playlist.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", 13 GO
+https://origin.dpsgo.com/ssai/event/LhHrVtyeQkKZ-Ye_xEU75g/master.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", 13 INTERNACIONAL
+https://redirector.dps.live/hls/13intav/playlist.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", 13 POP
+https://redirector.dps.live/hls/13pop/playlist.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", 13 REALITIES
+https://redirector.dps.live/hls/13realities/playlist.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", 13 TELESERIES
+https://origin.dpsgo.com/ssai/event/f4TrySe8SoiGF8Lu3EIq1g/master.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", 13 VIAJES
+https://redirector.dps.live/hls/13viajes/playlist.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", 2 TV
+https://player-api.new.livestream.com/accounts/679322/events/3782013/broadcasts/233438722.secure.m3u8?dw=80&hdnea=st=1666533123~exp=1666534923~acl=/i/679322_3782013_lsiel9n70ifzzsloff6_1@447535/*~hmac=3644b4856bcad5dc3e95de47b98d0583cc1c67b53f994ba7b0c0d91a0777abf9&token=6355482f_d49c9b2089ffe34f334fc5b60b75ee84dcc6f691&PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", 24 HORAS
+https://mdstrm.com/live-stream-playlist/689ba606ecfe7915e1f8f741.m3u8?&an=screen&at=web-app&ref=https%3A%2F%2Fwww.24horas.cl%2Fsenal-24hplay&PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", 24/7 Heroes
+http://tv.proyectox.vip:8080/live/AlainG2370/3af106c81340/94832.ts?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", 26 TV
+https://live-edge01.telecentro.net.ar/live/smil:c26.smil/playlist.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", 7 Sevilla
+https://streaming004.gestec-video.com/hls/7TVSEVILLA.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", 87330
+https://unlimited1-cl-http://www.skytvpluzz.online:8000/images/13a08ba195f710fb2c2de45aa7da75c7.pngisp.dps.live/87330/87330.smil/playlist.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", A
+https://zdf-hls-15.akamaized.net/hls/live/2016498/de/veryhigh/master.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", A & W
+https://fl1002.bozztv.com/ssh101/88channel/playlist.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", A&E br
+http://212.102.60.39:2200/BR/AE_HD-br/tracks-v1a1/mono.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", A24
+https://dai.google.com/linear/hls/pa/event/Txk1vDlZR2CCfDuUZ0ylpw/stream/a7a103ad-7b71-4d4d-8dcd-b40d74de396e:SCL/variant/0c9f77ea95444cbfd46a0108e4f60b04/bandwidth/1500000.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", A3 BIKINI xx
+https://vcnbikininetwork.teleosmedia.com/stream/bikininetwork/a3bikini/playlist.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", ABC
+https://d2e809bgs49c6y.cloudfront.net/live/d87c2b7b-9ecf-4e6e-b63b-b32772bd7851/live.isml/d87c2b7b-9ecf-4e6e-b63b-b32772bd7851.m3u8?PlaylistM3UCL&PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", AGRO + (DF)
+http://evpp.mm.uol.com.br/geob_band/agromais/playlist.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", AIO Martus Dubai
+https://af.ayas.ir/hls2/aiosport.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", AMC
+http://tv.proyectox.vip:8080/live/AlainG2370/3af106c81340/9702.ts?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", AmÃ©rica 
+https://dai.google.com/linear/hls/pa/event/OY2i_lL4SMyXE5Zaj4ULEg/stream/34253489-f62c-4445-ac59-f1912b8e3870:SCL/variant/39306c6188277619e451f445821f508d/bandwidth/1746000.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", America tv
+https://dai.google.com/linear/hls/event/OY2i_lL4SMyXE5Zaj4ULEg/master.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Amordiscos TV
+https://canal.mediaserver.com.co:8088/live/canalamordiscos.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Ani Retro
+https://tv.streaming-chile.com:19360/8068/8068.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Anime Station
+https://ssh101-fl.bozztv.com/ssh101/livestreamingtv/index.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Anime Zone Tv
+http://animezonetv.net/hls/stream.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", apsattv
+https://www.apsattv.com/lg.m3u?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Arg
+https://m3u.cl/lista/AR.m3u?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Atv server1
+http://tv.proyectox.vip:8080/live/AlainG2370/3af106c81340/8438.ts?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Atv server2
+http://alfatv.lat:2082/live/JorgAlvar1/9JCrP6TaWXvw/552648.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", ATV server3
+http://live.detodotvplay.com/live/Cano52/8T4E3p5MnPq5/627.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", AXN
+http://mainpy.allmedia4.tv:25461/live/deisimartv789/deisimartv789/111.ts?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", AZTECA 7
+https://www.supertelevisionhd.net/azteca-7-en-vivo/?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Band TV
+https://5cf4a2c2512a2.streamlock.net/rbatv/rbatv/playlist-480p.m3u8?PlaylistM3UCL&PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Big Tv
+https://fl1002.bozztv.com/ssh101/bigchannel/playlist.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", BIO BIO TV
+https://redirector.rudo.video/hls/bbtv/playlist.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Br
+http://newxplusnew2.xyz:2095/get.php?username=NEW_LIVE5607283020&password=262508810&type=m3u&PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", C9N
+http://mainpy.allmedia4.tv:25461/live/deisimartv789/deisimartv789/22.ts?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", CAMARA DE DIPUTADOS
+https://tls-cl.cdnz.cl/streamdiptudadosa/live/playlist.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", CANAL 13
+https://redirector.dps.live/hls/13cl/playlist.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Canal 13 
+https://jireh-hls-live-video.dpsgo.com/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/c13/playlist.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Canal Anime Onegai
+https://live.animeonegai.com/2secondtv0147728054173312/2e8b02ec75d7198df8c1ccbbeaa7329b.sdp/playlist.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Canal Anime Taltal Tv
+https://glb.bozztv.com/glb/ssh101/taltal/index.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Casa Grande Tv
+https://fl1002.bozztv.com/ssh101/cgtve/playlist.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Cathy
+https://m3u.cl/playlist/Angelab.m3u?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", CINE AR
+https://5fb24b460df87.streamlock.net/live-cont.ar/cinear/playlist.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Cinema +
+https://byecableiptvnew3.ddns.net/ENVIVOCINEMA/tracks-v1a1/mono.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Cinemax pe
+http://newultra.xyz:8080/live/940366165tv/559zej/179.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", CNN CHILE
+https://redirector.dps.live/hls-video/lvcl5/cnn/cnn.smil/playlist.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", CrÃ³nica TV
+https://g5.mc-slo.transport.edge-access.net:443/b16/ngrp:cronicatv_video1-100044_all/cronicatv_video1-100044_720p.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", CHV
+https://redirector.dps.live/hls/chv/playlist.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", CHV
+https://mdstrm.com/live-stream-playlist/6491ced935a5833c47dd7f41.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", CHV NOTICIAS
+https://redirector.dps.live/hls/chvn/playlist.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", DEPORTES 13
+https://redirector.rudo.video/hls/13d/playlist.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", El Cuatro
+https://5cd577a3dd8ec.streamlock.net:443/canal4/smil:manifest.smil/chunklist_w509963696_b316000.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", El meme Maldito pelÃ­cula completa
+http://live.detodotvplay.com/movie/Cano52/8T4E3p5MnPq5/367446.mkv?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", El Nueve
+https://2a1773fcc0c94a639b422d1cf7ba14b7.mediatailor.us-east-1.amazonaws.com/v1/manifest/4c8323052bc3dbd9aa2eba0b638d8495561e8377/JW-Octubre-Channel09/56af1985-f595-4bf1-bf1d-06e8fe949de5/5.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", EL TRECE
+http://174.138.118.252/live/trece_mid.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", El Trece
+https://live-01-02-eltrece.vodgc.net/eltrecetv/playlist.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Energeek
+https://streaming-cl.sh1ny.space/memfs/e8a8e789-170b-4de4-a33b-90a9a475ce65_output_0.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Esports Max
+https://vcp13.myplaytv.com/esportsmax/esportsmax/playlist.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Esposas 18
+https://videos01.brasileirinhas.com.br/vod/Cld4smrZg/playlist.m3u8?sjwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjM2NTMzNjAsIm5iZiI6MTY2MzY1MzI0MCwiZXhwIjoxNjYzNjYwNTYwLCJjbGllbnRlIjoiMTc5LjIwOS40Ni4xMyIsImlzcyI6Ind3dy5icmFzaWxlaXJpbmhhcy5jb20uYnIiLCJqdGkiOiIxODM1ODAxNDk2NjMyOTU1ZjA1NjQ0OTYuMjc5MTcwNjAifQ.ai68IsZakDg_inKp6VkUmAPt0G4af3w-5MJ2C0Tx8SA&PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Esposas 18 2
+https://videos01.brasileirinhas.com.br/vod/olWb5lrZg/playlist.m3u8?sjwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjM2NTMzODMsIm5iZiI6MTY2MzY1MzI2MywiZXhwIjoxNjYzNjYwNTgzLCJjbGllbnRlIjoiMTc5LjIwOS40Ni4xMyIsImlzcyI6Ind3dy5icmFzaWxlaXJpbmhhcy5jb20uYnIiLCJqdGkiOiI5ODQyMzIyODE2MzI5NTYwN2EyNmJkNy40NjY4MDAwNSJ9.rM56tiOYOWJrbkxMen1Do3slzBSbBV2Mud8uQO236mw&PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Esposas 18 3
+https://videos01.brasileirinhas.com.br/vod/am5JXnrZg/playlist.m3u8?sjwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjM2NTM0MjYsIm5iZiI6MTY2MzY1MzMwNiwiZXhwIjoxNjYzNjYwNjI2LCJjbGllbnRlIjoiMTc5LjIwOS40Ni4xMyIsImlzcyI6Ind3dy5icmFzaWxlaXJpbmhhcy5jb20uYnIiLCJqdGkiOiIxMjEwNzc0MjUxNjMyOTU2MzJlZTcwZDguMjc2NDk0NjgifQ.Pk4ZKW73Vsg-LSdr87y95hVNMEdaHuQjLxFImLgV3yU&PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Esposas 18 6
+https://videos01.brasileirinhas.com.br/vod/kc1ad6VYg/playlist.m3u8?sjwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjM2NTM2OTMsIm5iZiI6MTY2MzY1MzU3MywiZXhwIjoxNjYzNjYwODkzLCJjbGllbnRlIjoiMTc5LjIwOS40Ni4xMyIsImlzcyI6Ind3dy5icmFzaWxlaXJpbmhhcy5jb20uYnIiLCJqdGkiOiIxNzU2MzkzMjcwNjMyOTU3M2RkN2VjNzcuMzcxNTUyNzgifQ.JueVhFhJEFtRrQ5GfDlBJo4MRiy8hJQFX10SQj0XAOs&PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Esposas 18 7
+https://videos01.brasileirinhas.com.br/vod/zDEthrCdh/playlist.m3u8?sjwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjM2NTM4NzUsIm5iZiI6MTY2MzY1Mzc1NSwiZXhwIjoxNjYzNjYxMDc1LCJjbGllbnRlIjoiMTc5LjIwOS40Ni4xMyIsImlzcyI6Ind3dy5icmFzaWxlaXJpbmhhcy5jb20uYnIiLCJqdGkiOiIzMTM2MjcwOTc2MzI5NTdmMzIxYTcxNS4yNTc0NDkxMSJ9.xJPLD7yRGh7hCZrvHNX-KfFshcI5izUR1T0-wn44Nxo&PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Esposas 18 8
+https://videos01.brasileirinhas.com.br/vod/E63yesCdh/playlist.m3u8?sjwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjM2NTM4OTksIm5iZiI6MTY2MzY1Mzc3OSwiZXhwIjoxNjYzNjYxMDk5LCJjbGllbnRlIjoiMTc5LjIwOS40Ni4xMyIsImlzcyI6Ind3dy5icmFzaWxlaXJpbmhhcy5jb20uYnIiLCJqdGkiOiIxNTg0MzEyNTE2MzI5NTgwYjJjZDlkNi41MzM4NTc0NyJ9.C9HwglDQ78tP-YXR8KJaklLZVlCGh5Qm47018O30WrM&PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Esposas 18 9
+https://videos01.brasileirinhas.com.br/vod/H9H6btCdh/playlist.m3u8?sjwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjM2NTM5NjIsIm5iZiI6MTY2MzY1Mzg0MiwiZXhwIjoxNjYzNjYxMTYyLCJjbGllbnRlIjoiMTc5LjIwOS40Ni4xMyIsImlzcyI6Ind3dy5icmFzaWxlaXJpbmhhcy5jb20uYnIiLCJqdGkiOiIyMDk1MzU4OTk0NjMyOTU4NGE2OTdmYzQuNTI4ODgzMDcifQ.vAtD_-1gOMCR3LzZmSlZTlHFBeDjpIDHB1jHrjze28E&PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Esposas 4
+https://videos01.brasileirinhas.com.br/vod/MBOXljkYg/chunklist_w2002702228_b800000_t64NDgwUA==.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Fan Pop
+https://streaming-cl.sh1ny.space/memfs/e16d2f72-70b5-4bf5-b9c5-107b6390a10f_output_0.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", FashionTV
+https://fash1043.cloudycdn.services/slive/_definst_/ftv_ftv_paris_pg_4dg_27027_paris_pg18_188_hls.smil/chunklist_b600000_t64MjQwcA==.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Fox Sport
+http://190.210.221.119/Processor3_10_chunklist_b1300000.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Globo
+http://mainpy.allmedia4.tv:25461/live/deisimartv789/deisimartv789/141.ts?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Gogoplay Tv
+https://fl1002.bozztv.com/ssh101/gogoplayhd/playlist.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Hbo
+http://45.35.77.114:34213/live/cyx_18F2D042E0a44fED979_480p.ts?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Hbo
+http://flash.shortgod.com/0015489/tv5.php?id=3299&PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Hbo 
+http://br055.shop:8880/live/WilJacome/Willi4mJ4c/431.ts?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Hbo 2 pe
+http://imaxplay.net:8080/live/Vargas2023/SQRBE/19579.ts?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", HBO Mundi
+http://cukuyx.lig1cfhw.xyz/live/cyx_pNtESXFQD0GgaA3Gw6LqyktHiE_480p.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", HISTORY 2
+http://cdn.connectbr.com.br/h2/tracks-v1a1/mono.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", History Channel
+http://mainpy.allmedia4.tv:25461/live/deisimartv789/deisimartv789/58.ts?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Hola TV 
+https://live.atresmediainternacional.com/ATRESMEDIA/holatv-index.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Hola TV
+https://live.atresmediainternacional.com/ATRESMEDIA/holatv-index.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", HUSTLER
+https://s.oxax.tv/tjgW_aVe--R55X7D4eiMCA/10/1771457528/index.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Interconnect Tv 
+https://glb.bozztv.com/glb/ssh101/tv123456789/index.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", ITV Patagonia
+https://unlimited1-cl-isp.dps.live/itv/itv.smil/playlist.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Jjj
+https://m3u.cl/lista/CO.m3u?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", LA RED
+https://alba-cl-lared-lared.stream.mediatiquestream.com/index.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", LatÃ­n Angels
+http://gratis.shortgod.com/descarga-shortgod211/pluttv.php?c=5df41355939756000921d15b/master.m3u8&PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Lista 1
+https://pastebin.com/raw/cFvhKcqM?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Mariano
+http://playext.uno:8080?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Max Anime 
+https://vcp14.myplaytv.com/maxanime/maxanime/playlist.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", MEGA
+https://unlimited2-cl-isp.dps.live/mega/mega.smil/playlist.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Mega
+https://unlimited1-cl-isp.dps.live/mega/mega.smil/playlist.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Meta Versus
+https://vivo.solumedia.com:19360/metaversus/metaversus.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Mix Bolivia Tv
+https://fl1002.bozztv.com/ssh101/mixboliviatvhd/playlist.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Moni Tv
+https://stream.skarnetchile.com:19360/monitvhd/monitvhd.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Music
+http://www.m3u.cl/lista/musica.m3u?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Musicales 
+https://m3u.cl/lista/musica.m3u?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", N+
+https://channel04-notusa.akamaized.net/hls/live/2029754-b/event01/index.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", NICKELODEON
+http://cdn.connectbr.com.br/Nickelodeon/tracks-v1a1/mono.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Night Time
+https://mitv.zplay.cl/NightTime/index.fmp4.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", NTV
+https://mdstrm.com/live-stream-playlist/5aaabe9e2c56420918184c6d.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Nuestra VisiÃ³n 
+https://linear-262.frequency.stream/dist/vix/262/hls/master/playlist.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", OkaÃ±a Rradiotv fm_am... Musika Zen
+https://okana_rradiotv_fm_am.m3u?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Orbi
+https://ss3.domint.net:3134/otv_str/orbittv/chunklist_w89118231.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Orbit Tv
+https://ss3.domint.net:3134/otv_str/orbittv/playlist.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Origen Tv
+https://tv.streaming-chile.com:8081/origentvhd/index.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", Paramount
+http://181.176.148.142:8000/play/a033?PlaylistM3UCL
+#EXTINF:-1 tvg-logo="http:" group-title="", PlayboyHD
+http://38.250.119.233:4444/play/a02a/index.m3u8
