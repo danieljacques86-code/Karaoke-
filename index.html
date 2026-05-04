@@ -1,60 +1,51 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Blogflixtv</title>
+  <meta charset="UTF-8" />
+  <title>IPTV M3U8 Player</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<script src="https://accounts.google.com/gsi/client" async defer></script>
-<link rel="stylesheet" href="style.css">
+  <!-- Video.js (for HLS/M3U8 playback) -->
+  <link href="https://vjs.zencdn.net/8.10.0/video-js.min.css" rel="stylesheet" />
+  <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
 
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      color: #222;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+  </style>
 </head>
 <body>
+  <div class="container">
+    <h1>IPTV M3U8 Player</h1>
 
-<h1>🎬 Blogflixtv</h1>
+    <video
+      id="stream-player"
+      class="video-js vjs-default-skin vjs-16-9"
+      controls
+      preload="auto"
+      data-setup="{}">
+      <source src="http://infogovsp.org:80/live/zw8w59/9sfcai/227506.m3u8" type="application/x-mpegURL" />
+      Your browser does not support the video tag with HLS.
+    </video>
+  </div>
 
-<!-- LOGIN -->
-<div id="loginBox">
-
-<div id="g_id_onload"
-     data-client_id="SEU_CLIENT_ID"
-     data-callback="handleCredentialResponse">
-</div>
-
-<div class="g_id_signin"
-     data-type="standard"
-     data-theme="filled_black"
-     data-size="large">
-</div>
-
-</div>
-
-<!-- AREA LOGADA -->
-<div id="app" style="display:none;">
-
-<div id="userInfo"></div>
-
-<h2>Área VIP 🔒</h2>
-
-<div class="cards">
-    <div class="card" onclick="playVideo('https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8')">
-        ▶ Canal 1
-    </div>
-
-    <div class="card" onclick="playVideo('https://test-streams.mux.dev/test_001/stream.m3u8')">
-        ▶ Canal 2
-    </div>
-</div>
-
-<video id="player" controls autoplay></video>
-
-<br><br>
-<button onclick="logout()">Sair</button>
-
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-<script src="app.js"></script>
-
+  <script>
+    const player = videojs("stream-player");
+    // Optional: autoplay (may be blocked by browser)
+    // player.play();
+  </script>
 </body>
 </html>
