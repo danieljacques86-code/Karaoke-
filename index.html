@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
-  <title>SportLive M3U Player</title>
+  <title>Karaoke + SportLive Player</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="https://vjs.zencdn.net/8.10.0/video-js.min.css" rel="stylesheet" />
   <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
@@ -56,7 +56,7 @@
 </head>
 <body>
   <div class="container">
-    <h1>SportLive – Player M3U8 (Rápido)</h1>
+    <h1>Karaoke + SportLive Player</h1>
 
     <video
       id="stream-player"
@@ -77,9 +77,8 @@
     const listEl = document.getElementById("channel-list");
 
     const M3U_URL =
-      "https://dl.dropboxusercontent.com/scl/fi/nln0qvhqwt6fx0b57zoy2/sportLive.txt?rlkey=qpodxt2auc0wyy46o9qdmto3b&st=krp4jff0&dl=1";
+      "https://raw.githubusercontent.com/danieljacques86-code/Karaoke-/refs/heads/main/lista.m3u";
 
-    // Tenta carregar o arquivo M3U (sem jQuery)
     fetch(M3U_URL)
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -99,7 +98,7 @@
           } else if (
             line.trim().startsWith("http") &&
             currentName &&
-            channels.length < 200 // limite para carregar rápido
+            channels.length < 200
           ) {
             channels.push({ name: currentName, url: line.trim() });
             currentName = null;
@@ -107,14 +106,13 @@
         }
 
         if (channels.length === 0) {
-          statusEl.textContent = "Nenhum canal encontrado no arquivo M3U.";
+          statusEl.textContent = "Nenhum canal encontrado na lista.";
           return;
         }
 
-        // Feedback visual
-        statusEl.textContent = `⚠️ Lista cortada para ${channels.length} canais (melhor desempenho).`;
+        statusEl.textContent =
+          `⚠️ Lista carregada (${channels.length} canais).`;
 
-        // Renderiza botões
         channels.forEach((ch, i) => {
           const btn = document.createElement("button");
           btn.textContent = `${i + 1} - ${ch.name}`;
@@ -123,17 +121,14 @@
           listEl.appendChild(btn);
         });
 
-        // Toca primeiro canal
         if (channels[0]) changeChannel(channels[0].url);
       })
       .catch((err) => {
         statusEl.innerHTML =
-          `Erro ao carregar a lista:<br><code>${err.message}</code><br>Verifique se o link está acessível no navegador.` +
-          `<br><small>Link: <a href="${M3U_URL}" target="_blank">abrir</a></small>`;
+          `Erro ao carregar a lista:<br><code>${err.message}</code>`;
         console.error("Erro ao carregar M3U:", err);
       });
 
-    // Muda o canal no player
     function changeChannel(url) {
       if (!player) return;
       player.src({ src: url, type: "application/x-mpegURL" });
