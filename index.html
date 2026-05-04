@@ -1,35 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
-  <title>IPTV M3U8 Player</title>
+  <title>SportLive M3U Player</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- Video.js (for HLS/M3U8 playback) -->
   <link href="https://vjs.zencdn.net/8.10.0/video-js.min.css" rel="stylesheet" />
   <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <style>
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
       margin: 0;
-      padding: 20px;
+      padding: 16px;
       background-color: #f5f5f5;
-      color: #333;
+      color: #222;
     }
     h1 {
       text-align: center;
-      color: #222;
+      margin-bottom: 8px;
     }
     .container {
       max-width: 1000px;
       margin: 0 auto;
     }
+    #channel-list {
+      margin-top: 12px;
+      max-height: 200px;
+      overflow-y: auto;
+      border: 1px solid #ddd;
+      padding: 8px;
+      background: #fff;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+    #channel-list button {
+      display: block;
+      width: 100%;
+      margin: 4px 0;
+      padding: 8px;
+      text-align: left;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background: #f9f9f9;
+      cursor: pointer;
+    }
+    #channel-list button:hover {
+      background: #e0e0e0;
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>IPTV M3U8 Player</h1>
+    <h1>SportLive – Player M3U8</h1>
 
     <video
       id="stream-player"
@@ -37,15 +59,87 @@
       controls
       preload="auto"
       data-setup="{}">
-      <source src="http://infogovsp.org:80/live/zw8w59/9sfcai/227506.m3u8" type="application/x-mpegURL" />
-      Your browser does not support the video tag with HLS.
+      <p class="vjs-no-js">Para visualizar o stream é necessário habilitar JavaScript.</p>
     </video>
+
+    <div id="channel-list">
+      <p>Carregando lista de canais...</p>
+    </div>
   </div>
 
   <script>
     const player = videojs("stream-player");
-    // Optional: autoplay (may be blocked by browser)
-    // player.play();
+
+    const M3U_URL =
+      "https://dl.dropboxusercontent.com/scl/fi/nln0qvhqwt6fx0b57zoy2/sportLive.txt?rlkey=qpodxt2auc0wyy46o9qdmto3b&st=krp4jff0&dl=1";
+
+    let currentChannels = [];
+
+    // Função para carregar o arquivo M3U
+    function loadM3U() {
+      $.get(M3U_URL)
+        .then((rawText) => {
+          const lines = rawText.split("
+");
+          const channels = [];
+          let currentName = null;
+
+          for (const line of lines) {
+            if (line.trim().startsWith("#EXTINF")) {
+              const nameMatch = line.match(/,(.+)$/);
+              currentName = nameMatch ? nameMatch[1].trim() : "Canal sem nome";
+            } else if (line.trim().startsWith("http") && currentName) {
+              channels.push({ name: currentName, url: line.trim() });
+              currentName = null;
+            }
+          }
+
+          if (channels.length === 0) {
+            $("#channel-list").html(
+              "<p>Nenhum canal encontrado no arquivo M3U.</p>"
+            );
+            return;
+          }
+
+          // Salva e monta botões
+          currentChannels = channels;
+          const menu = channels
+            .map(
+              (ch, i) =>
+                `<button data-url="${ch.url}">${i + 1} - ${ch.name}</button>`
+            )
+            .join("");
+          $("#channel-list").html(menu);
+
+          // Toca primeiro canal por padrão
+          if (channels[0]) {
+            changeChannel(channels[0].url);
+          }
+
+          // Eventos de clique
+          $("#channel-list").on("click", "button", function () {
+            const url = $(this).data("url");
+            changeChannel(url);
+          });
+        })
+        .fail((err) => {
+          console.error("Erro ao carregar o arquivo M3U:", err);
+          $("#channel-list").html(
+            `<p>Erro ao carregar lista (verifique CORS ou link):</p>
+             <code>${M3U_URL}</code>`
+          );
+        });
+    }
+
+    // Muda o canal atual
+    function changeChannel(url) {
+      player.src({ src: url, type: "application/x-mpegURL" });
+      player.load();
+      player.play();
+    }
+
+    // Inicia o carregamento ao abrir a página
+    loadM3U();
   </script>
 </body>
 </html>
