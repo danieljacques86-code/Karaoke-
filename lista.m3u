@@ -1,4 +1,8 @@
 #EXTM3U
+#EXTINF:-1 tvg-logo="https://d1muf25xaso8hp.cloudfront.net/https://futemax.news/assets/uploads/teams/aston-villa.webp" group-title="esporte",ao vivo
+https://r1.mgf.lat/live/0570729558/8715792861/pt_eleven1.m3u8
+
+
 #EXTINF:-1 tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/brazil/globo-br.png" group-title="TVABERTA", GLOBO 
 https://s2.micineovs.com/GLOBO/tracks-v1a1/mono.m3u8?token=16FOTt9Ae2m8
 
